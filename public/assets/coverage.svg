@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 520" width="700" height="520" role="img" aria-label="The area Crown Point Glass covers">
+  <rect width="700" height="520" fill="#dcf0f4"/>
+  <circle cx="400" cy="265" r="180" fill="none" stroke="#2fb0c4" stroke-width="3" stroke-dasharray="10 8" opacity="0.75"/>
+  <circle cx="400" cy="265" r="115" fill="#2fb0c4" opacity="0.12"/>
+  <text x="400" y="72" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="17" font-weight="700" fill="#2fb0c4" letter-spacing="2">24HR EMERGENCY RADIUS</text>
+    <circle cx="250" cy="120" r="5" fill="#12293d"/>
+    <text x="250" y="106" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Bolton</text>
+    <circle cx="380" cy="105" r="5" fill="#12293d"/>
+    <text x="380" y="91" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Bury</text>
+    <circle cx="505" cy="120" r="5" fill="#12293d"/>
+    <text x="505" y="106" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Rochdale</text>
+    <circle cx="130" cy="190" r="5" fill="#12293d"/>
+    <text x="130" y="176" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Wigan</text>
+    <circle cx="285" cy="215" r="5" fill="#12293d"/>
+    <text x="285" y="201" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Salford</text>
+    <circle cx="545" cy="205" r="5" fill="#12293d"/>
+    <text x="545" y="191" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Oldham</text>
+    <circle cx="400" cy="265" r="9" fill="#2fb0c4"/>
+    <text x="400" y="251" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="19" font-weight="700" fill="#12293d">MANCHESTER</text>
+    <circle cx="560" cy="300" r="5" fill="#12293d"/>
+    <text x="560" y="286" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Tameside</text>
+    <circle cx="275" cy="320" r="5" fill="#12293d"/>
+    <text x="275" y="306" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Trafford</text>
+    <circle cx="430" cy="355" r="5" fill="#12293d"/>
+    <text x="430" y="341" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Stockport</text>
+    <circle cx="545" cy="370" r="5" fill="#12293d"/>
+    <text x="545" y="356" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Denton</text>
+    <circle cx="170" cy="400" r="5" fill="#12293d"/>
+    <text x="170" y="386" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Warrington</text>
+    <circle cx="430" cy="450" r="5" fill="#12293d"/>
+    <text x="430" y="436" text-anchor="middle" font-family="DM Sans, system-ui, sans-serif" font-size="16" font-weight="500" fill="#12293d">Cheshire East</text>
+
+  <rect x="0" y="456" width="700" height="64" fill="#12293d"/>
+  <rect x="0" y="456" width="8" height="64" fill="#2fb0c4"/>
+  <text x="32" y="496" font-family="DM Sans, system-ui, sans-serif" font-size="23" font-weight="600" fill="#dcf0f4">Greater Manchester &amp; Cheshire</text>
+</svg>

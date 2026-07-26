@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Crown Point Glass">
+  <rect width="512" height="512" rx="96" fill="#0b1926"/>
+  <g fill="none" stroke="#2fb0c4" stroke-width="30" stroke-linejoin="round">
+    <rect x="112" y="96" width="288" height="320" rx="10"/>
+    <path d="M256 96v320M112 256h288"/>
+  </g>
+  <path d="M150 140l70 70" stroke="#ffffff" stroke-width="16" stroke-linecap="round" opacity="0.75"/>
+</svg>

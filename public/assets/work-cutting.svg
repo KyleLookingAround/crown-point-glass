@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Cut to size in our works">
+  <rect width="800" height="600" fill="#dcf0f4"/>
+  <g fill="none" stroke="#12293d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M100 380h600"/>
+    <path d="M160 380V200h420v180"/>
+    <path d="M280 200v180M420 200v180" stroke="#2fb0c4"/>
+    <path d="M540 140l60 60-40 40" stroke="#f5a623"/>
+    <path d="M140 380l-40 90h640l-40-90"/>
+  </g>
+  <rect x="0" y="536" width="800" height="64" fill="#12293d"/>
+  <text x="32" y="576" font-family="DM Sans, system-ui, sans-serif" font-size="24" font-weight="600" fill="#dcf0f4">Cut to size in our works</text>
+  <rect x="0" y="536" width="8" height="64" fill="#2fb0c4"/>
+</svg>

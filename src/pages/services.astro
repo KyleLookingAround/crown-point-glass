@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
+import { getEntry } from 'astro:content';
+import { getSettings, telHref } from '../lib/site';
+
+const s = await getSettings();
+const entry = await getEntry('services', 'main');
+if (!entry) throw new Error('content/services.yml is missing');
+const m = entry.data;
+---
+
+<Base
+  title={`Services — ${s.name}`}
+  description={`Glazing services across ${s.region} and Cheshire: double glazing replacement, windows and doors, shopfronts, made-to-measure glass, locks and 24hr emergency board-up.`}
+  nav="services"
+  page="services.html">
+
+<!-- PAGE HEADER -->
+<section class="page-head">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">Services</div>
+      <h1 class="page-title">What we <em>do.</em></h1>
+      <p class="page-lede">{m.intro}</p>
+      <p class="page-note">{m.note}</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE CARDS -->
+<section class="services">
+  <div class="services-grid">
+    {m.services.map((sv, i) => (
+      <article class="service">
+        <div class="card-num">№ {String(i + 1).padStart(2, '0')}</div>
+        <ServiceIcon name={sv.icon} />
+        <h2>{sv.title}</h2>
+        <p>{sv.body}</p>
+        {sv.points.length > 0 && (
+          <ul class="service-points">
+            {sv.points.map((p) => <li>{p}</li>)}
+          </ul>
+        )}
+      </article>
+    ))}
+  </div>
+</section>
+
+<!-- CTA strip -->
+<section class="community">
+  <div class="community-inner">
+    <div class="eyebrow">Not sure which you need?</div>
+    <h2>Just <em>ask us.</em></h2>
+    <p>Send a photo and a rough size and we'll tell you what it needs — and what it costs — before anyone comes out.</p>
+    <div class="hero-cta hero-cta--centre">
+      <a class="btn" href="./quote.html">Get a quote</a>
+      <a class="btn btn-ghost" href={telHref(s.phone)}>Call {s.phone}</a>
+    </div>
+  </div>
+</section>
+
+</Base>

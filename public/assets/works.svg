@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Glass cut in our own works">
+  <rect width="800" height="600" fill="#dcf0f4"/>
+  <g fill="none" stroke="#12293d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M80 400h640"/>
+    <path d="M150 400V220h360v180"/>
+    <path d="M270 220v180M390 220v180" stroke="#2fb0c4"/>
+    <path d="M560 150l70 70-50 50" stroke="#f5a623"/>
+    <path d="M120 400l-40 100h660l-40-100"/>
+    <path d="M600 300h80v100h-80z" stroke="#6b8599" stroke-width="4"/>
+  </g>
+  <rect x="0" y="536" width="800" height="64" fill="#12293d"/>
+  <text x="32" y="576" font-family="DM Sans, system-ui, sans-serif" font-size="24" font-weight="600" fill="#dcf0f4">Glass cut in our own works</text>
+  <rect x="0" y="536" width="8" height="64" fill="#2fb0c4"/>
+</svg>

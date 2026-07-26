@@ -1,0 +1,80 @@
+# ════════════════════════════════════════════════════════════════════
+#  CROWN POINT GLASS · business settings
+#
+#  Everything here feeds the whole site: the header, the footer, the
+#  contact panel, the opening-hours table, the live open/closed pill and
+#  the Google listing (structured data). Change it once, here.
+#
+#  ⚠ CHECK BEFORE GOING LIVE — the values marked "CONFIRM" were taken
+#  from public listings, not from the business directly.
+# ════════════════════════════════════════════════════════════════════
+
+url: https://crownpointglass.co.uk/
+name: Crown Point Glass
+legalName: Crown Point Glass Limited
+description: Glaziers and glass manufacturers covering Greater Manchester and Cheshire — double glazing, window and door installation, custom glass and 24hr emergency board-up.
+strapline: Glass made, supplied and fitted properly.
+
+# ── Contact ────────────────────────────────────────────────────────
+phone: '0161 943 5424'
+emergencyPhone: '07726 353078'   # CONFIRM — listed publicly as a second number; assumed to be the out-of-hours line
+email: info@crownpointglass.com
+
+# ── Where we are ───────────────────────────────────────────────────
+# CONFIRM the trading address. Public sources show a Wilbraham Road
+# registered office and separate works in Denton — set whichever address
+# customers should actually turn up to.
+street: 28-30 Wilbraham Road
+locality: Manchester
+region: Greater Manchester
+postcode: M14 7DW
+country: GB
+companyNumber: '14725550'
+
+# ── Where we work ──────────────────────────────────────────────────
+areasIntro: We cover Greater Manchester and Cheshire from our works, with emergency call-out across the Manchester area around the clock.
+areas:
+  - Manchester
+  - Stockport
+  - Denton
+  - Tameside
+  - Trafford
+  - Salford
+  - Oldham
+  - Rochdale
+  - Bury
+  - Bolton
+  - Wigan
+  - Cheshire East
+  - Cheshire West
+  - Warrington
+
+# ── Social ─────────────────────────────────────────────────────────
+facebook: https://www.facebook.com/crownpointglassltd/
+previewImage: /assets/share-card.png
+
+# ── Opening hours ──────────────────────────────────────────────────
+# ⚠ CONFIRM — these are placeholder trade hours. The emergency line runs
+# 24/7 regardless of what this table says; this is the office/works.
+# One row per day or block of days. Times are 24-hour.
+hours:
+  - fromDay: Mo
+    toDay: Fr
+    open: '08:00'
+    close: '17:00'
+  - fromDay: Sa
+    open: '09:00'
+    close: '13:00'
+  - fromDay: Su
+    closed: true
+
+# The out-of-hours promise shown next to the hours table.
+emergencyNote: Emergency board-up and make-safe runs 24 hours a day, seven days a week — including when the office is shut.
+
+# ── Trust strip (shown above the footer) ───────────────────────────
+# Certifications, memberships or listings. Remove any that don't apply.
+credentials:
+  - name: Companies House — Crown Point Glass Limited
+    url: https://find-and-update.company-information.service.gov.uk/company/14725550
+  - name: Find us on Facebook
+    url: https://www.facebook.com/crownpointglassltd/

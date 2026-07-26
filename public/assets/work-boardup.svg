@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Emergency board-up">
+  <rect width="800" height="600" fill="#dcf0f4"/>
+  <g fill="none" stroke="#12293d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="120" y="110" width="560" height="360" rx="6"/>
+    <path d="M400 110v360M120 290h560"/>
+    <path d="M150 160l500 260M650 160L150 420" stroke="#f5a623" stroke-width="14"/>
+    <path d="M60 500h680"/>
+  </g>
+  <rect x="0" y="536" width="800" height="64" fill="#12293d"/>
+  <text x="32" y="576" font-family="DM Sans, system-ui, sans-serif" font-size="24" font-weight="600" fill="#dcf0f4">Emergency board-up</text>
+  <rect x="0" y="536" width="8" height="64" fill="#2fb0c4"/>
+</svg>

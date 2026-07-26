@@ -1,0 +1,39 @@
+# ════════════════════════════════════════════════════════════════════
+#  CROWN POINT GLASS · emergency page (emergency.html)
+# ════════════════════════════════════════════════════════════════════
+
+intro: "Broken glass doesn't wait for office hours. Our make-safe service covers the Manchester area 24 hours a day, and we aim to be on site within the hour."
+promise: "On site within the hour, across the Manchester area"
+
+# ── What we come out to ────────────────────────────────────────────
+callouts:
+  - title: "Break-ins"
+    body: "Forced doors, smashed windows and damaged frames. We board the opening, make the door secure and change the lock if it's been through."
+  - title: "Storm & impact damage"
+    body: "Wind-blown panes, fallen branches, vehicle impact. Cleared, boarded and made watertight so the property isn't standing open overnight."
+  - title: "Accidental breakage"
+    body: "A ball through a window, a slipped ladder, a door that's gone through. Same response, no drama."
+  - title: "Commercial make-safe"
+    body: "Shopfronts, offices and units. Boarded discreetly so you can open in the morning, with photographs for the insurer."
+
+# ── The order it happens in ────────────────────────────────────────
+steps:
+  - title: "You call"
+    body: "The emergency number is answered by someone who can dispatch, not a message service. Tell us the address, what's broken and roughly how big it is."
+  - title: "We make it safe"
+    body: "The crew clears the broken glass, boards the opening and secures the property. Locks changed there and then if the door's been forced."
+  - title: "We measure up"
+    body: "While we're on site we take the sizes for the permanent repair, and photograph the damage for your insurer if you need it."
+  - title: "We glaze it properly"
+    body: "The glass is cut and made up in our own works, then fitted at a time that suits — usually within a few days, sooner where we can."
+
+# ── Practical notes ────────────────────────────────────────────────
+notes:
+  - label: "Coverage"
+    body: "24hr make-safe across the Manchester area; planned glazing throughout Greater Manchester and Cheshire."
+  - label: "Insurance"
+    body: "We photograph and document the damage and can invoice insurers directly on approved claims."
+  - label: "Payment"
+    body: "Make-safe is charged as a call-out plus materials, quoted before we start wherever the situation allows."
+  - label: "Boarding"
+    body: "Boards stay up until the replacement glass is in. There's no separate charge to come back and take them down."

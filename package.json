@@ -1,0 +1,18 @@
+{
+  "name": "crown-point-glass",
+  "version": "1.0.0",
+  "description": "Crown Point Glass — glazing, glass supply and 24hr emergency board-up. Astro static site built from YAML content.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.4.0",
+    "astro": "^5.12.0",
+    "js-yaml": "^4.1.0"
+  }
+}

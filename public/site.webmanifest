@@ -1,0 +1,13 @@
+{
+  "name": "Crown Point Glass",
+  "short_name": "Crown Point",
+  "description": "Glaziers and glass manufacturers covering Greater Manchester and Cheshire — with 24hr emergency board-up.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f7f9",
+  "theme_color": "#0b1926",
+  "icons": [
+    { "src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

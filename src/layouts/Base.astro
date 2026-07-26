@@ -1,0 +1,160 @@
+---
+/**
+ * The shared shell: head (meta/OG/JSON-LD), top bar with the emergency
+ * number, credentials strip and footer. Every page renders inside this.
+ */
+import { getSettings, ogImage, hoursData, jsonLd, statusShort, telHref } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** which top-nav item is highlighted */
+  nav?: 'home' | 'services' | 'emergency' | 'work' | 'quote';
+  /** the page's file name, e.g. "services.html" — "index.html" for home */
+  page?: string;
+}
+
+const { title, description, nav, page = '' } = Astro.props;
+const s = await getSettings();
+const pageUrl = s.url + (page === 'index.html' ? '' : page);
+const year = new Date().getFullYear();
+const active = (n: string) => (nav === n ? 'active' : undefined);
+---
+
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<!-- Favicon (inline SVG, no external file needed) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f2233'/%3E%3Cg stroke='%2340c0d0' stroke-width='7' fill='none'%3E%3Crect x='20' y='18' width='60' height='64'/%3E%3Cpath d='M50 18v64M20 50h60'/%3E%3C/g%3E%3C/svg%3E">
+
+<!-- Open Graph / Social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={pageUrl}>
+<meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content={s.name}>
+<meta property="og:image" content={ogImage(s)}>
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={`${s.name} — ${s.strapline} ${s.region}.`}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={title}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={ogImage(s)}>
+
+<link rel="apple-touch-icon" href="./assets/icon.svg">
+<link rel="manifest" href="./site.webmanifest">
+<link rel="sitemap" href="./sitemap-index.xml">
+
+<link rel="preload" href="./assets/fonts/dmsans.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="./styles.css">
+
+<!-- LocalBusiness structured data (helps Google Search & Maps). -->
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd(s)).replace(/</g, '\\u003c')} />
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- EMERGENCY BAR — always the first thing on the page -->
+<div class="alertbar">
+  <span class="alertbar-dot" aria-hidden="true"></span>
+  <span class="alertbar-text">Broken glass? 24hr emergency board-up</span>
+  <a class="alertbar-call" href={telHref(s.emergencyPhone)}>{s.emergencyPhone}</a>
+</div>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <a class="logo" href="./">
+    <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3">
+      <rect x="5" y="4" width="30" height="32" rx="2"/>
+      <path d="M20 4v32M5 20h30"/>
+    </svg>
+    <span class="logo-text">Crown Point <em>Glass</em></span>
+  </a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+  <label for="nav-toggle" class="burger" aria-label="Open menu" title="Menu" tabindex="0" role="button" aria-expanded="false" aria-controls="nav-toggle">
+    <span></span><span></span><span></span>
+  </label>
+  <nav>
+    <a href="./" class={active('home')}>Home</a>
+    <a href="./services.html" class={active('services')}>Services</a>
+    <a href="./emergency.html" class={active('emergency')}>Emergency</a>
+    <a href="./work.html" class={active('work')}>Our work</a>
+    <a href="./quote.html" class={active('quote')}>Get a quote</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <div class="topbar-right">
+    <div class="status" data-open-status title="Opening hours">
+      <span class="pulse"></span><span class="status-text">{statusShort(s)}</span>
+    </div>
+    <a class="topbar-call" href={telHref(s.phone)}>
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L17 13l4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 3.5 5.2 2 2 0 0 1 5.5 3z"/>
+      </svg>
+      <span>{s.phone}</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+<slot />
+</main>
+
+{s.credentials.length > 0 && (
+  <aside class="press" aria-label="Company details">
+    <span class="press-label">Registered &amp; findable</span>
+    <ul class="press-list">
+      {s.credentials.map((c) => (
+        <li><a href={c.url} target="_blank" rel="noopener">{c.name} ↗</a></li>
+      ))}
+    </ul>
+  </aside>
+)}
+
+<!-- FOOTER -->
+<footer>
+  <p class="foot-addr">{s.region} &amp; Cheshire</p>
+  <div class="wordmark">Crown Point <em>Glass</em></div>
+  <p class="foot-strap">{s.strapline}</p>
+
+  <div class="foot-calls">
+    <a class="foot-call" href={telHref(s.phone)}>
+      <span class="fc-lbl">Office</span><span class="fc-num">{s.phone}</span>
+    </a>
+    <a class="foot-call foot-call--urgent" href={telHref(s.emergencyPhone)}>
+      <span class="fc-lbl">24hr emergency</span><span class="fc-num">{s.emergencyPhone}</span>
+    </a>
+  </div>
+
+  <nav class="foot-nav">
+    <a href="./">Home</a>
+    <a href="./services.html">Services</a>
+    <a href="./emergency.html">Emergency</a>
+    <a href="./work.html">Our work</a>
+    <a href="./quote.html">Get a quote</a>
+  </nav>
+  <div class="socials">
+    <a href={`mailto:${s.email}`}>Email</a>
+    {s.facebook && <a href={s.facebook} target="_blank" rel="noopener">Facebook</a>}
+    {s.instagram && <a href={s.instagram} target="_blank" rel="noopener">Instagram</a>}
+  </div>
+  <div class="small">
+    © {year} {s.legalName} · {s.street}, {s.locality} {s.postcode}
+    {s.companyNumber && ` · Registered in England & Wales no. ${s.companyNumber}`}
+  </div>
+</footer>
+
+<!-- Opening-hours data (read by the app script for the live open/closed status) -->
+<script is:inline set:html={`window.__CPG__=${JSON.stringify(hoursData(s))};`} />
+<script src="../scripts/app.ts"></script>
+
+</body>
+</html>

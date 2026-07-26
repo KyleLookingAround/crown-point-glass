@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="uPVC casement windows">
+  <rect width="800" height="600" fill="#dcf0f4"/>
+  <g fill="none" stroke="#12293d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="110" y="90" width="580" height="390" rx="6"/>
+    <path d="M400 90v390M110 285h580"/>
+    <path d="M170 150h160M170 200h160" stroke="#2fb0c4" stroke-width="4"/>
+    <path d="M70 510h660"/>
+    <path d="M370 330h60" stroke="#6b8599"/>
+  </g>
+  <rect x="0" y="536" width="800" height="64" fill="#12293d"/>
+  <text x="32" y="576" font-family="DM Sans, system-ui, sans-serif" font-size="24" font-weight="600" fill="#dcf0f4">uPVC casement windows</text>
+  <rect x="0" y="536" width="8" height="64" fill="#2fb0c4"/>
+</svg>

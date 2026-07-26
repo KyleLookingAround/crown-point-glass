@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Gallery from '../components/Gallery.astro';
+import { getEntry } from 'astro:content';
+import { getSettings, telHref } from '../lib/site';
+
+const s = await getSettings();
+const entry = await getEntry('gallery', 'main');
+if (!entry) throw new Error('content/gallery.yml is missing');
+const g = entry.data;
+---
+
+<Base
+  title={`Our work — ${s.name}`}
+  description={`Glazing jobs by ${s.name} across ${s.region} and Cheshire — shopfronts, replacement units, made-to-measure glass and emergency board-ups.`}
+  nav="work"
+  page="work.html">
+
+<!-- PAGE HEADER -->
+<section class="page-head">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">Our work</div>
+      <h1 class="page-title">Some of the <em>jobs.</em></h1>
+      <p class="page-lede">{g.intro}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ALL THE PHOTOS (tap to open the lightbox) -->
+<section class="gallery gallery-page">
+  <Gallery photos={g.photos} mode="lightbox" />
+</section>
+
+<!-- CTA strip -->
+<section class="community">
+  <div class="community-inner">
+    <div class="eyebrow">Something similar?</div>
+    <h2>We'll price it <em>up.</em></h2>
+    <p>Send the sizes or a photo and we'll come back with a number. No call-out charge to quote.</p>
+    <div class="hero-cta hero-cta--centre">
+      <a class="btn" href="./quote.html">Get a quote</a>
+      <a class="btn btn-ghost" href={telHref(s.phone)}>Call {s.phone}</a>
+    </div>
+  </div>
+</section>
+
+</Base>

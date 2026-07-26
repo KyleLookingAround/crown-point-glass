@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { getSettings, telHref } from '../lib/site';
+
+const s = await getSettings();
+const entry = await getEntry('emergency', 'main');
+if (!entry) throw new Error('content/emergency.yml is missing');
+const e = entry.data;
+---
+
+<Base
+  title={`24hr emergency glazier — ${s.name}`}
+  description={`Emergency board-up and make-safe across the ${s.locality} area, 24 hours a day. Break-ins, storm damage and accidental breakage secured, then glazed properly.`}
+  nav="emergency"
+  page="emergency.html">
+
+<!-- PAGE HEADER + the number, big -->
+<section class="page-head page-head--urgent">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">24 hours a day</div>
+      <h1 class="page-title">Broken glass? <em>Call us.</em></h1>
+      <p class="page-lede">{e.intro}</p>
+      <p class="page-note">{e.promise}</p>
+    </div>
+    <div>
+      <a class="bigcall" href={telHref(s.emergencyPhone)}>
+        <span class="bc-lbl">Emergency line</span>
+        <span class="bc-num">{s.emergencyPhone}</span>
+        <span class="bc-sub">Answered 24/7 · Tap to call</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE COME OUT TO -->
+<section class="inside">
+  <h2>What we come <em>out to.</em></h2>
+  <div class="cards cards--four">
+    {e.callouts.map((c, i) => (
+      <div class="card">
+        <div class="card-num">№ {String(i + 1).padStart(2, '0')}</div>
+        <h3>{c.title}</h3>
+        <p>{c.body}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- HOW A CALL-OUT GOES -->
+<section class="steps">
+  <div class="steps-inner">
+    <div class="section-eyebrow">How a call-out goes</div>
+    <h2>Four <em>steps.</em></h2>
+    <ol class="step-list">
+      {e.steps.map((st, i) => (
+        <li class="step">
+          <span class="step-n">{i + 1}</span>
+          <div>
+            <h3>{st.title}</h3>
+            <p>{st.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- PRACTICAL NOTES -->
+{e.notes.length > 0 && (
+  <section class="notes">
+    <div class="notes-inner">
+      <div class="section-eyebrow">The practical bits</div>
+      <h2>Worth <em>knowing.</em></h2>
+      <ul class="note-list">
+        {e.notes.map((n) => (
+          <li>
+            <span class="note-lbl">{n.label}</span>
+            <span class="note-body">{n.body}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<!-- CTA strip -->
+<section class="community community--urgent">
+  <div class="community-inner">
+    <div class="eyebrow">Right now?</div>
+    <h2>Don't email — <em>ring us.</em></h2>
+    <p>If the property is open to the weather or insecure, the fastest thing you can do is pick up the phone. The line is answered around the clock.</p>
+    <div class="hero-cta hero-cta--centre">
+      <a class="btn" href={telHref(s.emergencyPhone)}>Call {s.emergencyPhone}</a>
+      <a class="btn btn-ghost" href="./quote.html">It can wait — get a quote</a>
+    </div>
+  </div>
+</section>
+
+</Base>

@@ -1,0 +1,242 @@
+---
+import Base from '../layouts/Base.astro';
+import Gallery from '../components/Gallery.astro';
+import { getEntry } from 'astro:content';
+import { getSettings, mapEmbedUrl, directionsUrl, hoursRows, hoursShort, statusShort, telHref } from '../lib/site';
+
+const s = await getSettings();
+const homeEntry = await getEntry('home', 'main');
+if (!homeEntry) throw new Error('content/home.yml is missing');
+const h = homeEntry.data;
+const galleryEntry = await getEntry('gallery', 'main');
+if (!galleryEntry) throw new Error('content/gallery.yml is missing');
+const teaserPhotos = galleryEntry.data.photos.slice(0, 6);
+
+const callbackMailto = `mailto:${s.email}?subject=${encodeURIComponent('Callback request — ' + s.name)}&body=${encodeURIComponent('Hi,\n\nPlease can you call me back about:\n\n— Address/postcode: \n— What needs doing: \n— Best time to call: \n\nThanks!')}`;
+---
+
+<Base
+  title={`${s.name} — glaziers in ${s.region} & Cheshire`}
+  description={s.description}
+  nav="home"
+  page="index.html">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">{h.eyebrow}</div>
+      <h1>
+        {h.headline.line1}<br>
+        <span class="glass-bg">{h.headline.line2}</span><br>
+        {h.headline.line3}
+      </h1>
+      <p class="hero-tag">{h.tagline}</p>
+
+      <div class="hero-cta">
+        <a class="btn" href={telHref(s.phone)}>Call {s.phone}</a>
+        <a class="btn btn-ghost" href="./quote.html">Get a quote</a>
+      </div>
+
+      <div class="hero-meta">
+        <div>Office<span>{hoursShort(s)}</span></div>
+        <div>Emergency<span>24 hours, 7 days</span></div>
+        <div>Covering<span>{s.region} &amp; Cheshire</span></div>
+      </div>
+
+      <div class="open-flag" data-open-status>
+        <span class="pulse"></span>
+        <span class="status-text">{statusShort(s)}</span>
+        <span class="of-sub"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITY TICKER -->
+<div class="ticker" aria-label="What we do">
+  <div class="ticker-tag">We do</div>
+  <div class="ticker-track">
+    {h.marquee.map((item) => <span>{item}</span>)}
+    {h.marquee.map((item) => <span>{item}</span>)}
+  </div>
+</div>
+
+<!-- EMERGENCY BAND -->
+<section class="emerg" id="emergency">
+  <div class="emerg-inner">
+    <div class="emerg-copy">
+      <div class="emerg-label">{h.emergency.label}</div>
+      <h2>{h.emergency.headline}</h2>
+      <p>{h.emergency.body}</p>
+      <a class="emerg-more" href="./emergency.html">{h.emergency.cta} →</a>
+    </div>
+    <a class="emerg-call" href={telHref(s.emergencyPhone)}>
+      <span class="ec-lbl">24hr emergency line</span>
+      <span class="ec-num">{s.emergencyPhone}</span>
+      <span class="ec-sub">Tap to call</span>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="story" id="about">
+  <div class="story-inner">
+    <div>
+      <div class="story-label">{h.story.label}</div>
+      <h2>{h.story.heading}</h2>
+      <figure class="story-photo">
+        <img src="/assets/works.svg" alt="Line drawing of a glazier cutting a pane of glass on a bench in the works" loading="lazy">
+      </figure>
+    </div>
+    <div>
+      <p class="lede">{h.story.lede}</p>
+      {h.story.paragraphs.map((p) => <p>{p}</p>)}
+      <div class="signature">{h.story.signature}</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO — three cards -->
+<section class="inside" id="what-we-do">
+  <h2>What we <em>do.</em></h2>
+  <div class="cards">
+    {h.inside.map((c, i) => (
+      <div class="card">
+        <div class="card-num">№ 0{i + 1}</div>
+        <svg class="card-icon" aria-hidden="true" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          {i === 0 && <><path d="M8 14h30v30H8z"/><path d="M22 24h30v30H22z"/><path d="M30 34l8 8M38 34l-8 8"/></>}
+          {i === 1 && <><rect x="10" y="8" width="40" height="44" rx="2"/><path d="M30 8v44M10 30h40"/></>}
+          {i === 2 && <><path d="M30 6l18 7v14c0 12-8 20-18 25C20 47 12 39 12 27V13z"/><path d="M22 29l6 6 11-12"/></>}
+        </svg>
+        <h3>{c.title}</h3>
+        <p>{c.body}</p>
+      </div>
+    ))}
+  </div>
+  <p class="inside-more"><a class="btn btn-ghost" href="./services.html">All our services</a></p>
+</section>
+
+<!-- WHO WE WORK FOR -->
+<section class="partners" id="sectors">
+  <div class="partners-inner">
+    <div class="partners-label">02 — Who we work for</div>
+    <h2>Domestic, commercial <em>and trade.</em></h2>
+    <div class="partners-grid">
+      {h.sectors.map((p) => (
+        <div class="partner">
+          <span class="partner-cat">{p.category}</span>
+          <h3>{p.url
+            ? <a class="partner-link" href={p.url} target="_blank" rel="noopener">{p.name} ↗</a>
+            : p.name}</h3>
+          <p>{p.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- RECENT WORK TEASER -->
+<section class="gallery" id="work">
+  <div class="gallery-head">
+    <div class="section-eyebrow">Recent work</div>
+    <h2>Some of the <em>jobs.</em></h2>
+  </div>
+  <Gallery photos={teaserPhotos} mode="teaser" />
+  <p class="gallery-more"><a class="btn" href="./work.html">See more of our work</a></p>
+</section>
+
+<!-- QUOTE BAND -->
+<section class="quote-band" style={`background-image: url('${h.quote.image}')`}>
+  <div class="quote-overlay"></div>
+  <blockquote class="quote">
+    <p>{h.quote.text}</p>
+    <cite>{h.quote.by}</cite>
+  </blockquote>
+</section>
+
+<!-- COVERAGE -->
+<section class="made-local" id="coverage">
+  <div class="made-local-inner">
+    <figure class="ml-art">
+      <img src={h.coverage.image} alt="Map-style diagram of the Greater Manchester and Cheshire area we cover" loading="lazy">
+      <figcaption>{h.coverage.caption}</figcaption>
+    </figure>
+    <div class="ml-text">
+      <div class="section-eyebrow">Where we work</div>
+      <h2>Across <em>the region.</em></h2>
+      <p class="lede">{h.coverage.blurb}</p>
+      <p class="areas-intro">{s.areasIntro}</p>
+      <ul class="area-list">
+        {s.areas.map((a) => <li>{a}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="community" id="cta">
+  <div class="community-inner">
+    <div class="eyebrow">Need a price?</div>
+    <h2>Tell us what's <em>broken.</em></h2>
+    <p>{h.community.blurb}</p>
+    <a class="btn" href="./quote.html">Get a quote</a>
+  </div>
+</section>
+
+<!-- CALLBACK -->
+<section class="signup" id="callback">
+  <div class="signup-inner">
+    <div class="eyebrow">Rather we rang you?</div>
+    <h2>Request a <em>callback.</em></h2>
+    <p class="lede">{h.callback.blurb}</p>
+    {h.callback.action
+      ? <form class="signup-form" action={h.callback.action} method="post" target="_blank">
+          <input class="signup-input" type="email" name={h.callback.fieldName} placeholder="you@email.com" required aria-label="Email address">
+          <button class="btn btn-signup" type="submit">Request a callback</button>
+        </form>
+      : <a class="btn btn-signup" href={callbackMailto}>Request a callback</a>}
+    <p class="signup-fineprint">No call-out charge to quote · No obligation</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="visit" id="contact">
+  <div class="visit-inner">
+    <div>
+      <div class="visit-label">03 — Get in touch</div>
+      <h2>Contact us.</h2>
+      <div class="address">
+        <strong>{s.legalName}</strong>
+        {s.street}<br>
+        {s.locality}, {s.postcode}
+      </div>
+      <ul class="hours-list">
+        {hoursRows(s).map((hr) => <li><span class="hl-day">{hr.day}</span><span class="hl-time">{hr.time}</span></li>)}
+      </ul>
+      <p class="hours-note">{s.emergencyNote}</p>
+      <ul class="contact-list">
+        <li><span class="lbl">Office</span><a href={telHref(s.phone)}>{s.phone}</a></li>
+        <li><span class="lbl">Emergency</span><a href={telHref(s.emergencyPhone)}>{s.emergencyPhone}</a></li>
+        <li><span class="lbl">Email</span><a href={`mailto:${s.email}`}>{s.email}</a></li>
+        {s.facebook && <li><span class="lbl">Social</span><a href={s.facebook} target="_blank" rel="noopener">Facebook</a></li>}
+      </ul>
+    </div>
+
+    <div class="map-col">
+      <div class="map-card">
+        <iframe
+          src={mapEmbedUrl(s)}
+          width="100%" height="100%"
+          style="border:0; display:block;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title={`${s.name}, ${s.street}, ${s.locality}`}
+          allowfullscreen></iframe>
+      </div>
+      <a class="map-link" href={directionsUrl(s)} target="_blank" rel="noopener">Get directions →</a>
+    </div>
+  </div>
+</section>
+
+</Base>

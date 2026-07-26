@@ -1,0 +1,45 @@
+---
+/**
+ * The photo grid. Two modes:
+ *  - "lightbox" (the Photos page): each shot opens the CSS :target lightbox,
+ *    with wrap-around prev/next arrows.
+ *  - "teaser" (the home page): each shot links through to the Photos page,
+ *    landing with that photo already open.
+ */
+interface Photo { src: string; caption: string }
+interface Props {
+  photos: Photo[];
+  mode: 'lightbox' | 'teaser';
+}
+
+const { photos, mode } = Astro.props;
+const shots = photos.map((p, i) => ({
+  ...p,
+  n: i + 1,
+  prev: ((i - 1 + photos.length) % photos.length) + 1,
+  next: ((i + 1) % photos.length) + 1,
+}));
+const shotHref = (n: number) => (mode === 'lightbox' ? `#shot-${n}` : `./photos.html#shot-${n}`);
+---
+
+<div class="gallery-grid">
+  {shots.map((p) => (
+    <a class="shot" id={mode === 'lightbox' ? `thumb-${p.n}` : undefined} href={shotHref(p.n)}>
+      <img src={p.src} alt={p.caption} loading="lazy">
+      <span class="shot-cap">{p.caption}</span>
+    </a>
+  ))}
+</div>
+
+{mode === 'lightbox' && shots.map((p) => (
+  <div class="lightbox" id={`shot-${p.n}`} role="dialog" aria-label={p.caption}>
+    <a class="lb-backdrop" href={`#thumb-${p.n}`} aria-label="Close"></a>
+    <figure class="lb-figure">
+      <img src={p.src} alt={p.caption}>
+      <figcaption class="lb-cap">{p.caption}</figcaption>
+    </figure>
+    <a class="lb-nav lb-prev" href={`#shot-${p.prev}`} aria-label="Previous photo">‹</a>
+    <a class="lb-nav lb-next" href={`#shot-${p.next}`} aria-label="Next photo">›</a>
+    <a class="lb-close" href={`#thumb-${p.n}`} aria-label="Close">✕</a>
+  </div>
+))}

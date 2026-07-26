@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { getSettings, mapEmbedUrl, directionsUrl, telHref } from '../lib/site';
+
+const s = await getSettings();
+const entry = await getEntry('quote', 'main');
+if (!entry) throw new Error('content/quote.yml is missing');
+const q = entry.data;
+
+const quoteMailto = `mailto:${s.email}?subject=${encodeURIComponent('Quote request — ' + s.name)}&body=${encodeURIComponent(
+  'Hi,\n\nPlease can you quote for the following:\n\n' +
+  '— Address / postcode: \n' +
+  '— What needs doing: \n' +
+  '— Sizes (width x height, mm): \n' +
+  '— Is it currently open to the weather? \n' +
+  '— Going through insurance? \n' +
+  '— Best number to reach me on: \n\n' +
+  '(Photos attached where I could take them.)\n\nThanks!'
+)}`;
+---
+
+<Base
+  title={`Get a quote — ${s.name}`}
+  description={`Free glazing quotes across ${s.region} and Cheshire. Send the sizes or a photo and ${s.name} will come back with a price — no call-out charge, no obligation.`}
+  nav="quote"
+  page="quote.html">
+
+<!-- PAGE HEADER -->
+<section class="page-head">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">Get a quote</div>
+      <h1 class="page-title">Send us the <em>details.</em></h1>
+      <p class="page-lede">{q.intro}</p>
+      <p class="page-note">{q.promise}</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU CAN GET QUOTED -->
+<section class="inside">
+  <h2>What we can <em>price.</em></h2>
+  <div class="cards">
+    {q.quoteTypes.map((t, i) => (
+      <div class="card">
+        <div class="card-num">№ 0{i + 1}</div>
+        <h3>{t.title}</h3>
+        <p>{t.body}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- WHAT TO SEND + CONTACT -->
+<section class="visit">
+  <div class="visit-inner">
+    <div>
+      <div class="visit-label">What to send</div>
+      <h2>Makes it <em>quicker.</em></h2>
+      <p class="booking-copy">No forms to fight with. Email or ring, and include whatever you've got — we'll ask if we need more.</p>
+      <ul class="checklist">
+        {q.checklist.map((c) => <li>{c}</li>)}
+      </ul>
+      <ul class="contact-list">
+        <li><span class="lbl">Email</span><a href={`mailto:${s.email}`}>{s.email}</a></li>
+        <li><span class="lbl">Office</span><a href={telHref(s.phone)}>{s.phone}</a></li>
+        <li><span class="lbl">Emergency</span><a href={telHref(s.emergencyPhone)}>{s.emergencyPhone}</a></li>
+      </ul>
+      <div class="hero-cta">
+        <a class="btn" href={quoteMailto}>Email a quote request</a>
+        <a class="btn btn-ghost" href={telHref(s.phone)}>Ring the office</a>
+      </div>
+    </div>
+
+    <div class="map-col">
+      <div class="map-card">
+        <iframe
+          src={mapEmbedUrl(s)}
+          width="100%" height="100%"
+          style="border:0; display:block;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title={`${s.name}, ${s.street}, ${s.locality}`}
+          allowfullscreen></iframe>
+      </div>
+      <a class="map-link" href={directionsUrl(s)} target="_blank" rel="noopener">Get directions →</a>
+    </div>
+  </div>
+</section>
+
+</Base>

@@ -1,0 +1,255 @@
+# Sveltia CMS configuration — maps the site's content files to edit forms.
+# Docs: https://github.com/sveltia/sveltia-cms
+backend:
+  name: github
+  repo: kylelookingaround/crown-point-glass
+  branch: main
+
+media_folder: public/assets   # where uploaded photos land in the repo
+public_folder: /assets        # how the content files refer to them
+
+site_url: https://crownpointglass.co.uk/
+display_url: https://crownpointglass.co.uk/
+
+collections:
+  - name: site
+    label: The Site
+    files:
+
+      # ── Business settings ─────────────────────────────────────────
+      - name: settings
+        label: "Business details (contact, hours, coverage)"
+        file: content/settings.yml
+        fields:
+          - { name: url, label: "Site address", hint: "The published web address — only change this when moving to a custom domain.", widget: string }
+          - { name: name, label: "Trading name", widget: string }
+          - { name: legalName, label: "Registered company name", widget: string }
+          - { name: description, label: "One-line description (search results & link previews)", widget: text }
+          - { name: strapline, label: "Strapline", widget: string }
+
+          - { name: phone, label: "Office phone", widget: string }
+          - { name: emergencyPhone, label: "24hr emergency phone", hint: "Shown in the amber bar at the top of every page.", widget: string }
+          - { name: email, label: "Email", widget: string }
+
+          - { name: street, label: "Street", widget: string }
+          - { name: locality, label: "Town / city", widget: string }
+          - { name: region, label: "Region", widget: string }
+          - { name: postcode, label: "Postcode", widget: string }
+          - { name: country, label: "Country code", widget: string, default: "GB" }
+          - { name: companyNumber, label: "Company number", required: false, widget: string }
+
+          - { name: areasIntro, label: "Coverage — intro line", widget: text }
+          - { name: areas, label: "Areas covered", hint: "Shown as pills on the home page.", widget: list, field: { name: area, label: Area, widget: string } }
+
+          - { name: facebook, label: "Facebook URL", required: false, widget: string }
+          - { name: instagram, label: "Instagram URL", required: false, widget: string }
+          - { name: instagramHandle, label: "Instagram handle", required: false, widget: string }
+          - { name: previewImage, label: "Link-preview image (1200×630)", widget: image }
+
+          - name: hours
+            label: "Office opening hours"
+            hint: "One row per day or block of days. This drives the hours table, the live open/closed pill and the Google listing — you only edit it here. The 24hr emergency line is separate and always on."
+            widget: list
+            summary: "{{fields.fromDay}}{{fields.toDay}} {{fields.open}}-{{fields.close}}"
+            fields:
+              - name: fromDay
+                label: "Day (or first day of a block)"
+                widget: select
+                options:
+                  - { label: Monday, value: Mo }
+                  - { label: Tuesday, value: Tu }
+                  - { label: Wednesday, value: We }
+                  - { label: Thursday, value: Th }
+                  - { label: Friday, value: Fr }
+                  - { label: Saturday, value: Sa }
+                  - { label: Sunday, value: Su }
+              - name: toDay
+                label: "Last day of the block (leave blank for a single day)"
+                required: false
+                widget: select
+                options:
+                  - { label: Monday, value: Mo }
+                  - { label: Tuesday, value: Tu }
+                  - { label: Wednesday, value: We }
+                  - { label: Thursday, value: Th }
+                  - { label: Friday, value: Fr }
+                  - { label: Saturday, value: Sa }
+                  - { label: Sunday, value: Su }
+              - { name: closed, label: "Closed this day", widget: boolean, default: false, required: false }
+              - { name: open, label: "Opens (24-hour, e.g. 08:00)", required: false, widget: string }
+              - { name: close, label: "Closes (24-hour, e.g. 17:00)", required: false, widget: string }
+
+          - { name: emergencyNote, label: "Out-of-hours note (shown under the hours table)", widget: text }
+
+          - name: credentials
+            label: "Registrations & listings strip"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: url, label: Link, widget: string }
+
+      # ── Home page ─────────────────────────────────────────────────
+      - name: home
+        label: "Home page"
+        file: content/home.yml
+        fields:
+          - { name: eyebrow, label: "Small line above the headline", widget: string }
+          - name: headline
+            label: "Headline (three lines — the middle one is highlighted)"
+            widget: object
+            fields:
+              - { name: line1, label: "Line 1", widget: string }
+              - { name: line2, label: "Line 2 (highlighted)", widget: string }
+              - { name: line3, label: "Line 3", widget: string }
+          - { name: tagline, label: "Intro paragraph", widget: text }
+          - { name: marquee, label: "Scrolling capability strip", widget: list, field: { name: item, label: Item, widget: string } }
+
+          - name: emergency
+            label: "Emergency band"
+            widget: object
+            fields:
+              - { name: label, label: "Small label", widget: string }
+              - { name: headline, label: "Headline", widget: string }
+              - { name: body, label: "Paragraph", widget: text }
+              - { name: cta, label: "Link text", widget: string }
+
+          - name: story
+            label: "About section"
+            widget: object
+            fields:
+              - { name: label, label: "Section label", widget: string }
+              - { name: heading, label: "Heading", widget: string }
+              - { name: lede, label: "Opening line", widget: text }
+              - { name: paragraphs, label: "Paragraphs", widget: list, field: { name: p, label: Paragraph, widget: text } }
+              - { name: signature, label: "Sign-off", widget: string }
+
+          - name: inside
+            label: "What we do — exactly three cards"
+            widget: list
+            max: 3
+            min: 3
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: text }
+
+          - name: sectors
+            label: "Who we work for"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: category, label: "Category chip", widget: string }
+              - { name: name, label: Name, widget: string }
+              - { name: url, label: Link, required: false, widget: string }
+              - { name: body, label: Body, widget: text }
+
+          - name: quote
+            label: "Quote band"
+            widget: object
+            fields:
+              - { name: text, label: "The line", widget: text }
+              - { name: by, label: "Attribution", widget: string }
+              - { name: image, label: "Background image", widget: image }
+
+          - name: coverage
+            label: "Coverage panel"
+            widget: object
+            fields:
+              - { name: image, label: "Image", widget: image }
+              - { name: caption, label: "Caption", widget: text }
+              - { name: blurb, label: "Opening line", widget: text }
+
+          - name: callback
+            label: "Callback strip"
+            widget: object
+            fields:
+              - { name: blurb, label: "Blurb", widget: text }
+              - { name: action, label: "Form endpoint (optional — blank uses email)", required: false, widget: string }
+              - { name: fieldName, label: "Form field name", required: false, widget: string, default: "email" }
+
+          - name: community
+            label: "Call-to-action band"
+            widget: object
+            fields:
+              - { name: blurb, label: "Blurb", widget: text }
+
+      # ── Services ──────────────────────────────────────────────────
+      - name: services
+        label: "Services page"
+        file: content/services.yml
+        fields:
+          - { name: intro, label: "Intro", widget: text }
+          - { name: note, label: "Note under the intro", widget: string }
+          - name: services
+            label: "Services"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - name: icon
+                label: "Icon"
+                widget: select
+                options: [window, door, shield, pane, lock, van, mirror, shop]
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: text }
+              - { name: points, label: "Bullet points", widget: list, field: { name: point, label: Point, widget: string } }
+
+      # ── Emergency ─────────────────────────────────────────────────
+      - name: emergency
+        label: "Emergency page"
+        file: content/emergency.yml
+        fields:
+          - { name: intro, label: "Intro", widget: text }
+          - { name: promise, label: "Response promise", widget: string }
+          - name: callouts
+            label: "What we come out to"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: text }
+          - name: steps
+            label: "How a call-out goes"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: text }
+          - name: notes
+            label: "Practical notes"
+            widget: list
+            summary: "{{fields.label}}"
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: body, label: Body, widget: text }
+
+      # ── Our work ──────────────────────────────────────────────────
+      - name: gallery
+        label: "Our work (photos)"
+        file: content/gallery.yml
+        fields:
+          - { name: intro, label: "Intro", widget: text }
+          - name: photos
+            label: "Photos"
+            hint: "The first six also appear on the home page."
+            widget: list
+            summary: "{{fields.caption}}"
+            fields:
+              - { name: src, label: Photo, widget: image }
+              - { name: caption, label: Caption, widget: string }
+
+      # ── Get a quote ───────────────────────────────────────────────
+      - name: quote
+        label: "Get a quote page"
+        file: content/quote.yml
+        fields:
+          - { name: intro, label: "Intro", widget: text }
+          - name: quoteTypes
+            label: "What we can price"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: text }
+          - { name: checklist, label: "What to send us", widget: list, field: { name: item, label: Item, widget: string } }
+          - { name: promise, label: "Response promise", widget: text }

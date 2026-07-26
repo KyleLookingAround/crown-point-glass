@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="New door and cylinder">
+  <rect width="800" height="600" fill="#dcf0f4"/>
+  <g fill="none" stroke="#12293d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M250 90h300v420H250z"/>
+    <path d="M300 140h200v170H300z"/>
+    <circle cx="510" cy="360" r="14"/>
+    <path d="M120 510h560"/>
+    <path d="M330 180h140M330 230h140" stroke="#2fb0c4" stroke-width="4"/>
+  </g>
+  <rect x="0" y="536" width="800" height="64" fill="#12293d"/>
+  <text x="32" y="576" font-family="DM Sans, system-ui, sans-serif" font-size="24" font-weight="600" fill="#dcf0f4">New door and cylinder</text>
+  <rect x="0" y="536" width="8" height="64" fill="#2fb0c4"/>
+</svg>

@@ -1,0 +1,20 @@
+# ════════════════════════════════════════════════════════════════════
+#  CROWN POINT GLASS · our work page (work.html) + the home-page teaser
+#
+#  Drop photos into public/assets/ and point "src" at them, e.g.
+#  src: "/assets/job-shopfront.jpg". The first six also show on the
+#  home page. The placeholders below are line drawings — swap them for
+#  real job photographs as they come in.
+# ════════════════════════════════════════════════════════════════════
+
+intro: "A few of the jobs — planned glazing, shopfronts and the odd three-in-the-morning board-up. Replace these with your own photographs as they come in."
+photos:
+  - { src: "/assets/work-shopfront.svg", caption: "toughened shopfront glass, fitted overnight" }
+  - { src: "/assets/work-sealed-unit.svg", caption: "blown double-glazed unit, replaced same week" }
+  - { src: "/assets/work-boardup.svg", caption: "emergency board-up after a break-in" }
+  - { src: "/assets/work-door.svg", caption: "new composite door and cylinder" }
+  - { src: "/assets/work-cutting.svg", caption: "cut to size in our own works" }
+  - { src: "/assets/work-mirror.svg", caption: "made-to-measure mirror, polished edges" }
+  - { src: "/assets/work-window.svg", caption: "casement windows, uPVC replacement" }
+  - { src: "/assets/work-splashback.svg", caption: "toughened splashback, drilled to order" }
+  - { src: "/assets/work-partition.svg", caption: "office partition glazing" }

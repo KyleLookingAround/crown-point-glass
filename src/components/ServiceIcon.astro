@@ -1,0 +1,73 @@
+---
+/**
+ * The line drawings used on the service cards. `name` comes from the
+ * `icon:` field in content/services.yml (validated by the ICON enum in
+ * src/content.config.ts, so an unknown name fails the build).
+ */
+interface Props { name: 'window' | 'door' | 'shield' | 'pane' | 'lock' | 'van' | 'mirror' | 'shop' }
+const { name } = Astro.props;
+---
+
+<svg class="card-icon" aria-hidden="true" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  {name === 'window' && (
+    <>
+      <rect x="10" y="8" width="40" height="44" rx="2"/>
+      <path d="M30 8v44M10 30h40"/>
+      <path d="M6 52h48"/>
+    </>
+  )}
+  {name === 'door' && (
+    <>
+      <path d="M14 6h32v48H14z"/>
+      <path d="M20 12h20v16H20z"/>
+      <circle cx="40" cy="38" r="2.2"/>
+      <path d="M8 54h44"/>
+    </>
+  )}
+  {name === 'shield' && (
+    <>
+      <path d="M30 6l18 7v14c0 12-8 20-18 25C20 47 12 39 12 27V13z"/>
+      <path d="M22 29l6 6 11-12"/>
+    </>
+  )}
+  {name === 'pane' && (
+    <>
+      <rect x="8" y="10" width="30" height="34" rx="2"/>
+      <rect x="20" y="18" width="30" height="34" rx="2"/>
+      <path d="M26 26l8 8M34 26l-8 8"/>
+    </>
+  )}
+  {name === 'lock' && (
+    <>
+      <rect x="12" y="26" width="36" height="26" rx="4"/>
+      <path d="M20 26v-7a10 10 0 0 1 20 0v7"/>
+      <circle cx="30" cy="37" r="3"/>
+      <path d="M30 40v5"/>
+    </>
+  )}
+  {name === 'van' && (
+    <>
+      <path d="M4 18h28v22H4z"/>
+      <path d="M32 24h10l8 9v7H32z"/>
+      <circle cx="16" cy="44" r="4.5"/>
+      <circle cx="42" cy="44" r="4.5"/>
+      <path d="M11 40h1M21 40h16"/>
+    </>
+  )}
+  {name === 'mirror' && (
+    <>
+      <rect x="14" y="6" width="32" height="40" rx="16"/>
+      <path d="M22 18c0-4 3-7 7-8"/>
+      <path d="M20 52h20"/>
+      <path d="M30 46v6"/>
+    </>
+  )}
+  {name === 'shop' && (
+    <>
+      <path d="M8 22h44v30H8z"/>
+      <path d="M8 22l4-10h36l4 10"/>
+      <path d="M22 52V34h16v18"/>
+      <path d="M4 52h52"/>
+    </>
+  )}
+</svg>

@@ -1,0 +1,24 @@
+# ════════════════════════════════════════════════════════════════════
+#  CROWN POINT GLASS · quote page (quote.html)
+# ════════════════════════════════════════════════════════════════════
+
+intro: "Send us the sizes, or just a photo of what's broken, and we'll come back with a price. There's no charge for a quote and no obligation to take it."
+
+quoteTypes:
+  - title: "Replacement glass"
+    body: "Measure the glass itself, not the frame — width, height and the thickness if you can see it. A photo of the pane and the surrounding frame usually tells us the rest."
+  - title: "Windows & doors"
+    body: "Rough opening sizes and a photo of the outside will do to start. We'll come and measure properly before anything is ordered."
+  - title: "Commercial & trade"
+    body: "Send a schedule or a drawing and we'll price it line by line. Toughened and laminated specs, fire ratings and lead times included."
+
+# ── What to send us ────────────────────────────────────────────────
+checklist:
+  - "The address, or at least the postcode"
+  - "What's broken, and whether it's currently open to the weather"
+  - "Sizes if you have them — width × height in mm"
+  - "A photo or two, taken from far enough back to see the frame"
+  - "Whether it's going through insurance"
+
+# ── Response promise ───────────────────────────────────────────────
+promise: "We answer quotes the same working day wherever we can. If it's an emergency, don't email — ring the 24hr number and we'll come out."

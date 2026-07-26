@@ -1,0 +1,83 @@
+# ════════════════════════════════════════════════════════════════════
+#  CROWN POINT GLASS · home page (index.html)
+# ════════════════════════════════════════════════════════════════════
+
+# ── Hero ───────────────────────────────────────────────────────────
+eyebrow: "Greater Manchester & Cheshire · 24hr emergency cover"
+headline:
+  line1: "Glass made,"
+  line2: "supplied"
+  line3: "and fitted."
+tagline: "Glaziers and glass manufacturers working across Greater Manchester and Cheshire. Double glazing, windows and doors, made-to-measure glass — and an emergency board-up crew that answers the phone at three in the morning."
+
+# ── Scrolling capability strip ─────────────────────────────────────
+marquee:
+  - "Double glazing replacement"
+  - "Emergency board-up"
+  - "Windows & doors"
+  - "Toughened glass"
+  - "Locks & handles"
+  - "Made to measure"
+  - "Commercial shopfronts"
+  - "On site within the hour"
+
+# ── Emergency band (the loud amber strip near the top) ─────────────
+emergency:
+  label: "Broken glass right now?"
+  headline: "Boarded up and made safe — 24 hours a day."
+  body: "Break-in, storm damage or an accident, our make-safe crew covers the Manchester area around the clock and aims to be on site within the hour. We board up, clear the glass, secure the opening, then come back and glaze it properly."
+  cta: "What happens on a call-out"
+
+# ── About ──────────────────────────────────────────────────────────
+story:
+  label: "01 — Who we are"
+  heading: "A glass works, not a middleman."
+  lede: "We cut, toughen and fit our own glass — so a job doesn't sit waiting on somebody else's delivery van."
+  paragraphs:
+    - "Crown Point Glass is a glass manufacturer and glazing contractor covering Greater Manchester and Cheshire. Because the glass is made in our own works, we control the lead time on the things that usually hold a job up: an odd-sized pane, a toughened unit, a shopfront that has to be right first time."
+    - "The work splits three ways. Planned glazing — replacing failed double-glazed units, fitting new windows and doors, cutting glass to order. Reactive work — the 24-hour board-up and make-safe service. And the trade side, supplying glass to builders, joiners and other glaziers across the region."
+    - "Domestic or commercial, one pane or a whole frontage, the promise is the same: turn up when we said, do it properly, leave the place tidy."
+  signature: "Crown Point Glass"
+
+# ── "What we do" — three cards ─────────────────────────────────────
+inside:
+  - title: "Made in our own works"
+    body: "Cut, toughened and sealed on our own premises. Made-to-measure panes, replacement double-glazed units, mirrors, splashbacks and safety glass — without waiting on a third-party supplier."
+  - title: "Fitted by our own fitters"
+    body: "Windows, doors, shopfronts and replacement units, installed by the people who made the glass. Single and double glazing, uPVC and aluminium, plus locks, hinges and handles while we're there."
+  - title: "Answered out of hours"
+    body: "Emergency board-up and make-safe, 24 hours a day across the Manchester area. Secured the same night, glazed properly as soon as the unit's ready."
+
+# ── Who we work for ────────────────────────────────────────────────
+sectors:
+  - category: "Homeowners"
+    name: "Domestic glazing"
+    body: "Misted or blown double glazing, cracked panes, new windows and doors, mirrors and splashbacks — priced up front, no call-out charge on quotes."
+  - category: "Business & property"
+    name: "Commercial glazing"
+    body: "Shopfronts, offices, schools and landlords. Toughened and laminated glass, fire-rated units, manifestation, and a make-safe number that gets answered out of hours."
+  - category: "Trade"
+    name: "Glass supply"
+    body: "Cut-to-size and toughened glass supplied to builders, joiners, shopfitters and other glaziers across Greater Manchester and Cheshire."
+
+# ── Quote band (photo + line) ──────────────────────────────────────
+quote:
+  text: "Boarded up the same night, new unit in by the end of the week."
+  by: "What a call-out looks like"
+  image: /assets/quote-band.svg
+
+# ── Coverage panel ─────────────────────────────────────────────────
+coverage:
+  image: /assets/coverage.svg
+  caption: "Greater Manchester and Cheshire, with 24hr emergency cover across the Manchester area."
+  blurb: "We're a local firm, not a national call centre. The van comes from our own works, the fitter is on our own books, and the person who answers the phone knows the job."
+
+# ── Callback strip ─────────────────────────────────────────────────
+callback:
+  blurb: "Send us the measurements, or just a photo of the damage, and we'll come back with a price. No call-out charge to quote."
+  action: ""          # optional form endpoint (e.g. a Formspree URL) — blank uses email
+  fieldName: "email"
+
+# ── CTA above the contact panel ────────────────────────────────────
+community:
+  blurb: "Tell us what's broken, what it measures, or just send a photo. We'll tell you what it needs and what it costs."
