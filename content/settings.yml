@@ -19,16 +19,33 @@ strapline: Glass made, supplied and fitted.
 # Both numbers are as advertised in the banner on the old site.
 phone: '0161 943 5424'
 emergencyPhone: '07726 353078'
-email: info@crownpointglass.com   # CONFIRM — not shown on the archived pages
+
+# The old site published no email address — enquiries went through a form.
+# Leave this blank to keep it that way: the site will show the contact form
+# and the phone numbers instead of any "email us" links. Fill it in only if
+# you actually want an inbox advertised.
+email: ''
+
+# ── Enquiry form ───────────────────────────────────────────────────
+# A static site can't process a form on its own, so the form needs an
+# endpoint from a form service (Formspree, Web3Forms, Basin, Getform…).
+# Paste the endpoint URL here and the contact form starts working.
+# While it's blank the contact page shows the phone numbers instead of a
+# form that would silently go nowhere.
+formEndpoint: ''
 
 # ── Where we are ───────────────────────────────────────────────────
-# ⚠ CONFIRM — the old site's "get in touch" page wasn't in the archive,
-# so this address still comes from public listings rather than from you.
-street: 28-30 Wilbraham Road
+# The business doesn't publish a street address — the old site showed only
+# phone numbers and a map of Manchester, which is normal for a mobile trade.
+# Leave street/postcode blank to keep it that way; the site then presents
+# itself as a service-area business (no address in the footer, no postal
+# address in the Google structured data) and the map centres on `mapArea`.
+street: ''
+postcode: ''
 locality: Manchester
 region: Greater Manchester
-postcode: M14 7DW
 country: GB
+mapArea: Manchester, UK
 companyNumber: '14725550'
 
 # ── Where we work ──────────────────────────────────────────────────

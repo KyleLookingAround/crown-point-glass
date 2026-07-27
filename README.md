@@ -27,16 +27,40 @@ In particular: the £160 + VAT emergency call-out (5pm–8am), the 5 year glazin
 guarantee, the 1 year locksmith guarantee, the 30–60 minute response and the
 three week installation turnaround.
 
-## ⚠️ Still unconfirmed
+## ⚠️ One thing to do before launch: connect the form
 
-The old site's "get in touch" page wasn't in the archive, so these are still
-guesses from public listings. All are marked `CONFIRM` in `content/settings.yml`:
+**The enquiry form doesn't send anywhere yet.** A static site can't process a
+form on its own, so it needs an endpoint from a form service — Formspree,
+Web3Forms, Basin and Getform all have free tiers. Sign up, paste the endpoint
+into `formEndpoint` in `content/settings.yml`, and the form starts working.
 
-| Field | Current value | Why it needs checking |
-|---|---|---|
-| `street` / `postcode` | 28-30 Wilbraham Road, M14 7DW | Public sources show both this address and separate works in Denton. Set whichever address customers should actually visit. |
-| `email` | info@crownpointglass.com | From a public listing, not from the old site. |
-| `hours` | Mon–Fri 8–5, Sat 9–1, Sun closed | Placeholder. Set to match the 8am–5pm emergency pricing split. The 24hr line is separate and unaffected. |
+Until then the contact page deliberately shows the phone numbers and says the
+form isn't connected, rather than presenting a form that silently swallows
+enquiries. That fallback is the safe state, not a bug — but it does mean every
+web enquiry currently has to come by phone.
+
+## No address, no email — on purpose
+
+The old site published neither: just the two numbers, an enquiry form and a map
+of Manchester. This site does the same, which is normal and sensible for a
+mobile trade.
+
+Practically, that means `street`, `postcode` and `email` in
+`content/settings.yml` are **deliberately blank**, and the site adapts:
+
+- the footer says "Covering Greater Manchester & Cheshire" instead of an address
+- the map centres on `mapArea` (Manchester) rather than pinning a building
+- the Google structured data describes a *service-area business* — town and
+  region only, with `areaServed` carrying the coverage
+- "email us" links become links to the enquiry form
+
+Fill any of them in and the site switches back automatically — a real address
+returns to the footer, map and structured data; an email restores the mailto
+links. Nothing else needs touching.
+
+The one value still inferred rather than confirmed is `hours` (Mon–Fri 8–5,
+Sat 9–1, Sun closed), set to line up with the 8am–5pm emergency pricing split.
+The 24hr line is separate and unaffected by it.
 
 ## Photographs
 
@@ -66,12 +90,14 @@ The editor is already pointed at this repository — see `backend.repo` in
 
 | File | Controls |
 |---|---|
-| `content/settings.yml` | Phone numbers, address, opening hours, areas covered, footer details |
+| `content/settings.yml` | Phone numbers, form endpoint, opening hours, areas covered, footer details |
 | `content/home.yml` | The home page top to bottom |
-| `content/services.yml` | The services list |
+| `content/services.yml` | The six services |
 | `content/emergency.yml` | The 24hr emergency page |
 | `content/gallery.yml` | Job photos (first six also appear on the home page) |
+| `content/faq.yml` | The FAQ page |
 | `content/quote.yml` | The quote-request page |
+| `content/contact.yml` | The contact page wording |
 
 Every field is commented in the file itself.
 
@@ -118,7 +144,7 @@ src/
   lib/site.ts       hours parsing, tel: links, map URLs, JSON-LD
   layouts/Base.astro  shared shell: emergency bar, nav, footer, <head>
   components/       Gallery (grid + lightbox), ServiceIcon (line drawings)
-  pages/            index · services · emergency · work · quote
+  pages/            index · services · emergency · work · faq · quote · contact
   scripts/app.ts    live open/closed pill, keyboard nav, scroll indicator
 public/
   styles.css        the whole stylesheet
@@ -126,8 +152,8 @@ public/
   assets/           images, the share card, the self-hosted typeface
 ```
 
-Five pages, built to flat URLs: `/`, `/services.html`, `/emergency.html`,
-`/work.html`, `/quote.html`.
+Seven pages, built to flat URLs: `/`, `/services.html`, `/emergency.html`,
+`/work.html`, `/faq.html`, `/quote.html`, `/contact.html`.
 
 **The site works with JavaScript off.** `app.ts` only adds the live status pill,
 keyboard support for the lightbox and the scroll indicator — the phone numbers,

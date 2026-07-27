@@ -15,13 +15,29 @@ export function fullAddress(s: Settings) {
   return [s.street, s.locality, s.postcode].filter(Boolean).join(', ');
 }
 
+/** True when a street address is published; false = service-area business. */
+export function hasAddress(s: Settings) {
+  return Boolean(s.street && s.postcode);
+}
+
+/**
+ * What the map should point at. With an address that's the address; without
+ * one it's the general area (`mapArea`), so the map shows the patch we cover
+ * rather than pinning a building the business doesn't advertise.
+ */
+function mapQuery(s: Settings) {
+  return hasAddress(s) ? fullAddress(s) : (s.mapArea || `${s.locality}, UK`);
+}
+
 export function mapEmbedUrl(s: Settings) {
-  const q = encodeURIComponent(fullAddress(s));
-  return `https://maps.google.com/maps?q=${q}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+  const q = encodeURIComponent(mapQuery(s));
+  // zoom out when showing a coverage area rather than a single address
+  const z = hasAddress(s) ? 15 : 10;
+  return `https://maps.google.com/maps?q=${q}&t=&z=${z}&ie=UTF8&iwloc=&output=embed`;
 }
 
 export function directionsUrl(s: Settings) {
-  const q = encodeURIComponent(fullAddress(s));
+  const q = encodeURIComponent(mapQuery(s));
   return `https://www.google.com/maps/dir/?api=1&destination=${q}`;
 }
 
@@ -148,7 +164,14 @@ export function hoursData(s: Settings) {
   return { tz: 'Europe/London', days };
 }
 
-/** LocalBusiness structured data (helps Google Search & Maps). */
+/**
+ * LocalBusiness structured data (helps Google Search & Maps).
+ *
+ * With no street address published this describes a *service-area* business:
+ * the postal address is reduced to the town/region, and `areaServed` carries
+ * the coverage. Google supports this — it's the right shape for a mobile
+ * trade — and it avoids advertising a building the business doesn't publish.
+ */
 export function jsonLd(s: Settings) {
   return {
     '@context': 'https://schema.org',
@@ -157,15 +180,15 @@ export function jsonLd(s: Settings) {
     legalName: s.legalName,
     description: s.description,
     url: s.url,
-    email: s.email,
+    ...(s.email ? { email: s.email } : {}),
     telephone: s.phone,
     image: ogImage(s),
     address: {
       '@type': 'PostalAddress',
-      streetAddress: s.street,
+      ...(s.street ? { streetAddress: s.street } : {}),
+      ...(s.postcode ? { postalCode: s.postcode } : {}),
       addressLocality: s.locality,
       addressRegion: s.region,
-      postalCode: s.postcode,
       addressCountry: s.country,
     },
     areaServed: s.areas.map((a) => ({ '@type': 'AdministrativeArea', name: a })),

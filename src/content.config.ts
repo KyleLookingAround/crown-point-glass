@@ -42,13 +42,21 @@ const settings = defineCollection({
 
     phone: z.string().min(1),
     emergencyPhone: z.string().min(1),
-    email: z.string().email(),
+    // Blank is the intended default — the business advertises no inbox, so
+    // the site shows the form and the phone numbers rather than mailto links.
+    email: z.union([z.string().email(), z.literal('')]).default(''),
+    // Blank until a form service endpoint is pasted in; the contact page
+    // falls back to the phone numbers rather than a form that goes nowhere.
+    formEndpoint: z.union([z.string().url(), z.literal('')]).default(''),
 
-    street: z.string().min(1),
+    // street/postcode blank => service-area business: no address published,
+    // and no postal address in the structured data.
+    street: z.string().default(''),
+    postcode: z.string().default(''),
     locality: z.string().min(1),
     region: z.string(),
-    postcode: z.string().min(1),
     country: z.string().default('GB'),
+    mapArea: z.string().default(''),
     companyNumber: z.string().default(''),
 
     areasIntro: z.string(),
@@ -178,4 +186,17 @@ const faq = defineCollection({
   }),
 });
 
-export const collections = { settings, home, services, gallery, emergency, quote, faq };
+const contact = defineCollection({
+  loader: single('content/contact.yml'),
+  schema: z.object({
+    intro: z.string(),
+    formTitle: z.string(),
+    formNote: z.string(),
+    asideTitle: z.string(),
+    asideBody: z.string(),
+    submitLabel: z.string(),
+    noFormNote: z.string(),
+  }),
+});
+
+export const collections = { settings, home, services, gallery, emergency, quote, faq, contact };

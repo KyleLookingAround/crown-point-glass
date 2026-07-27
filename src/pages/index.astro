@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Gallery from '../components/Gallery.astro';
 import { getEntry } from 'astro:content';
-import { getSettings, mapEmbedUrl, directionsUrl, hoursRows, hoursShort, statusShort, telHref } from '../lib/site';
+import { getSettings, mapEmbedUrl, directionsUrl, hoursRows, hoursShort, statusShort, hasAddress, telHref } from '../lib/site';
 
 const s = await getSettings();
 const homeEntry = await getEntry('home', 'main');
@@ -12,7 +12,11 @@ const galleryEntry = await getEntry('gallery', 'main');
 if (!galleryEntry) throw new Error('content/gallery.yml is missing');
 const teaserPhotos = galleryEntry.data.photos.slice(0, 6);
 
-const callbackMailto = `mailto:${s.email}?subject=${encodeURIComponent('Callback request — ' + s.name)}&body=${encodeURIComponent('Hi,\n\nPlease can you call me back about:\n\n— Address/postcode: \n— What needs doing: \n— Best time to call: \n\nThanks!')}`;
+// With no inbox advertised, the callback button goes to the enquiry form
+// rather than opening a mail client addressed to nobody.
+const callbackHref = s.email
+  ? `mailto:${s.email}?subject=${encodeURIComponent('Callback request — ' + s.name)}&body=${encodeURIComponent('Hi,\n\nPlease can you call me back about:\n\n— Address/postcode: \n— What needs doing: \n— Best time to call: \n\nThanks!')}`
+  : './contact.html';
 ---
 
 <Base
@@ -195,7 +199,7 @@ const callbackMailto = `mailto:${s.email}?subject=${encodeURIComponent('Callback
           <input class="signup-input" type="email" name={h.callback.fieldName} placeholder="you@email.com" required aria-label="Email address">
           <button class="btn btn-signup" type="submit">Request a callback</button>
         </form>
-      : <a class="btn btn-signup" href={callbackMailto}>Request a callback</a>}
+      : <a class="btn btn-signup" href={callbackHref}>Request a callback</a>}
     <p class="signup-fineprint">No call-out charge to quote · No obligation</p>
   </div>
 </section>
@@ -208,8 +212,9 @@ const callbackMailto = `mailto:${s.email}?subject=${encodeURIComponent('Callback
       <h2>Contact us.</h2>
       <div class="address">
         <strong>{s.legalName}</strong>
-        {s.street}<br>
-        {s.locality}, {s.postcode}
+        {hasAddress(s)
+          ? <>{s.street}<br>{s.locality}, {s.postcode}</>
+          : <>Covering {s.region} &amp; Cheshire<br>Emergency call-out across the {s.locality} area</>}
       </div>
       <ul class="hours-list">
         {hoursRows(s).map((hr) => <li><span class="hl-day">{hr.day}</span><span class="hl-time">{hr.time}</span></li>)}
@@ -218,7 +223,9 @@ const callbackMailto = `mailto:${s.email}?subject=${encodeURIComponent('Callback
       <ul class="contact-list">
         <li><span class="lbl">Office</span><a href={telHref(s.phone)}>{s.phone}</a></li>
         <li><span class="lbl">Emergency</span><a href={telHref(s.emergencyPhone)}>{s.emergencyPhone}</a></li>
-        <li><span class="lbl">Email</span><a href={`mailto:${s.email}`}>{s.email}</a></li>
+        {s.email
+          ? <li><span class="lbl">Email</span><a href={`mailto:${s.email}`}>{s.email}</a></li>
+          : <li><span class="lbl">Enquiries</span><a href="./contact.html">Send us a message</a></li>}
         {s.facebook && <li><span class="lbl">Social</span><a href={s.facebook} target="_blank" rel="noopener">Facebook</a></li>}
       </ul>
     </div>
@@ -231,7 +238,7 @@ const callbackMailto = `mailto:${s.email}?subject=${encodeURIComponent('Callback
           style="border:0; display:block;"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title={`${s.name}, ${s.street}, ${s.locality}`}
+          title={hasAddress(s) ? `${s.name}, ${s.street}, ${s.locality}` : `The area ${s.name} covers`}
           allowfullscreen></iframe>
       </div>
       <a class="map-link" href={directionsUrl(s)} target="_blank" rel="noopener">Get directions →</a>

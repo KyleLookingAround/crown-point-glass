@@ -1,23 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getEntry } from 'astro:content';
-import { getSettings, mapEmbedUrl, directionsUrl, telHref } from '../lib/site';
+import { getSettings, mapEmbedUrl, directionsUrl, hasAddress, telHref } from '../lib/site';
 
 const s = await getSettings();
 const entry = await getEntry('quote', 'main');
 if (!entry) throw new Error('content/quote.yml is missing');
 const q = entry.data;
 
-const quoteMailto = `mailto:${s.email}?subject=${encodeURIComponent('Quote request — ' + s.name)}&body=${encodeURIComponent(
-  'Hi,\n\nPlease can you quote for the following:\n\n' +
-  '— Address / postcode: \n' +
-  '— What needs doing: \n' +
-  '— Sizes (width x height, mm): \n' +
-  '— Is it currently open to the weather? \n' +
-  '— Going through insurance? \n' +
-  '— Best number to reach me on: \n\n' +
-  '(Photos attached where I could take them.)\n\nThanks!'
-)}`;
+// With an inbox advertised, prefill an email; without one, send people to
+// the enquiry form instead of a dead mailto link.
+const quoteHref = s.email
+  ? `mailto:${s.email}?subject=${encodeURIComponent('Quote request — ' + s.name)}&body=${encodeURIComponent(
+      'Hi,\n\nPlease can you quote for the following:\n\n' +
+      '— Address / postcode: \n' +
+      '— What needs doing: \n' +
+      '— Sizes (width x height, mm): \n' +
+      '— Is it currently open to the weather? \n' +
+      '— Going through insurance? \n' +
+      '— Best number to reach me on: \n\n' +
+      '(Photos attached where I could take them.)\n\nThanks!'
+    )}`
+  : './contact.html';
+const quoteLabel = s.email ? 'Email a quote request' : 'Send a quote request';
 ---
 
 <Base
@@ -58,17 +63,19 @@ const quoteMailto = `mailto:${s.email}?subject=${encodeURIComponent('Quote reque
     <div>
       <div class="visit-label">What to send</div>
       <h2>Makes it <em>quicker.</em></h2>
-      <p class="booking-copy">No forms to fight with. Email or ring, and include whatever you've got — we'll ask if we need more.</p>
+      <p class="booking-copy">Send it over or ring, and include whatever you've got — we'll ask if we need more.</p>
       <ul class="checklist">
         {q.checklist.map((c) => <li>{c}</li>)}
       </ul>
       <ul class="contact-list">
-        <li><span class="lbl">Email</span><a href={`mailto:${s.email}`}>{s.email}</a></li>
+        {s.email
+          ? <li><span class="lbl">Email</span><a href={`mailto:${s.email}`}>{s.email}</a></li>
+          : <li><span class="lbl">Enquiries</span><a href="./contact.html">Send us a message</a></li>}
         <li><span class="lbl">Office</span><a href={telHref(s.phone)}>{s.phone}</a></li>
         <li><span class="lbl">Emergency</span><a href={telHref(s.emergencyPhone)}>{s.emergencyPhone}</a></li>
       </ul>
       <div class="hero-cta">
-        <a class="btn" href={quoteMailto}>Email a quote request</a>
+        <a class="btn" href={quoteHref}>{quoteLabel}</a>
         <a class="btn btn-ghost" href={telHref(s.phone)}>Ring the office</a>
       </div>
     </div>
@@ -81,7 +88,7 @@ const quoteMailto = `mailto:${s.email}?subject=${encodeURIComponent('Quote reque
           style="border:0; display:block;"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-          title={`${s.name}, ${s.street}, ${s.locality}`}
+          title={hasAddress(s) ? `${s.name}, ${s.street}, ${s.locality}` : `The area ${s.name} covers`}
           allowfullscreen></iframe>
       </div>
       <a class="map-link" href={directionsUrl(s)} target="_blank" rel="noopener">Get directions →</a>

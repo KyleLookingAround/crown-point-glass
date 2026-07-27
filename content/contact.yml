@@ -1,0 +1,26 @@
+# ════════════════════════════════════════════════════════════════════
+#  CROWN POINT GLASS · contact page (contact.html)
+#
+#  The form fields mirror the enquiry form on the previous site:
+#  Name · Email · Phone Number · Post Code · Message
+#
+#  The form only sends once `formEndpoint` is set in settings.yml. Until
+#  then the page shows the phone numbers instead — better than a form that
+#  silently goes nowhere.
+# ════════════════════════════════════════════════════════════════════
+
+intro: "Cloudy or misted windows, a broken pane, a new door, or anything else — send us the details and we'll come back to you. If it's urgent, ring instead."
+
+# Shown above the form
+formTitle: "Send us a message"
+formNote: "We'll only use these details to answer your enquiry."
+
+# Shown next to the form
+asideTitle: "Rather just ring?"
+asideBody: "Quickest for anything urgent. The emergency number is answered around the clock; the office line during working hours."
+
+# The button on the form
+submitLabel: "Send enquiry"
+
+# Shown instead of the form while no form endpoint is configured
+noFormNote: "Our enquiry form isn't connected yet — please ring us on either number above and we'll pick it up straight away."

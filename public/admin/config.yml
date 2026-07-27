@@ -29,13 +29,15 @@ collections:
 
           - { name: phone, label: "Office phone", widget: string }
           - { name: emergencyPhone, label: "24hr emergency phone", hint: "Shown in the amber bar at the top of every page.", widget: string }
-          - { name: email, label: "Email", widget: string }
+          - { name: email, label: "Email", hint: "Leave blank to advertise no inbox — enquiry links then point at the contact form instead.", required: false, widget: string }
+          - { name: formEndpoint, label: "Enquiry form endpoint", hint: "Paste the URL from a form service (Formspree, Web3Forms, Basin…) to make the contact form send. While it's blank the contact page shows the phone numbers instead.", required: false, widget: string }
 
-          - { name: street, label: "Street", widget: string }
+          - { name: street, label: "Street", hint: "Leave blank if you don't publish an address — the footer, map and Google listing all adapt automatically.", required: false, widget: string }
+          - { name: postcode, label: "Postcode", required: false, widget: string }
           - { name: locality, label: "Town / city", widget: string }
           - { name: region, label: "Region", widget: string }
-          - { name: postcode, label: "Postcode", widget: string }
           - { name: country, label: "Country code", widget: string, default: "GB" }
+          - { name: mapArea, label: "Map centres on", hint: "Used when no street address is published, e.g. \"Manchester, UK\".", required: false, widget: string }
           - { name: companyNumber, label: "Company number", required: false, widget: string }
 
           - { name: areasIntro, label: "Coverage — intro line", widget: text }
@@ -88,6 +90,7 @@ collections:
             fields:
               - { name: name, label: Name, widget: string }
               - { name: url, label: Link, widget: string }
+              - { name: image, label: "Badge image (optional)", hint: "Shown instead of the text — e.g. the Assure logo.", required: false, widget: image }
 
       # ── Home page ─────────────────────────────────────────────────
       - name: home
@@ -253,3 +256,36 @@ collections:
               - { name: body, label: Body, widget: text }
           - { name: checklist, label: "What to send us", widget: list, field: { name: item, label: Item, widget: string } }
           - { name: promise, label: "Response promise", widget: text }
+
+      # ── FAQs ──────────────────────────────────────────────────────
+      - name: faq
+        label: "FAQ page"
+        file: content/faq.yml
+        fields:
+          - { name: intro, label: "Intro", widget: text }
+          - name: groups
+            label: "Question groups"
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "Group heading", widget: string }
+              - name: questions
+                label: "Questions"
+                widget: list
+                summary: "{{fields.q}}"
+                fields:
+                  - { name: q, label: Question, widget: string }
+                  - { name: a, label: Answer, widget: text }
+
+      # ── Contact ───────────────────────────────────────────────────
+      - name: contact
+        label: "Contact page"
+        file: content/contact.yml
+        fields:
+          - { name: intro, label: "Intro", widget: text }
+          - { name: formTitle, label: "Form section label", widget: string }
+          - { name: formNote, label: "Note under the form", widget: text }
+          - { name: asideTitle, label: "Side panel heading", widget: string }
+          - { name: asideBody, label: "Side panel text", widget: text }
+          - { name: submitLabel, label: "Submit button label", widget: string }
+          - { name: noFormNote, label: "Shown while the form endpoint is blank", widget: text }

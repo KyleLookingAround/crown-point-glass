@@ -9,7 +9,7 @@ interface Props {
   title: string;
   description: string;
   /** which top-nav item is highlighted */
-  nav?: 'home' | 'services' | 'emergency' | 'work' | 'faq' | 'quote';
+  nav?: 'home' | 'services' | 'emergency' | 'work' | 'faq' | 'quote' | 'contact';
   /** the page's file name, e.g. "services.html" — "index.html" for home */
   page?: string;
 }
@@ -90,7 +90,7 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
     <a href="./work.html" class={active('work')}>Our work</a>
     <a href="./faq.html" class={active('faq')}>FAQs</a>
     <a href="./quote.html" class={active('quote')}>Get a quote</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="./contact.html" class={active('contact')}>Contact</a>
   </nav>
   <div class="topbar-right">
     <div class="status" data-open-status title="Opening hours">
@@ -148,14 +148,20 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
     <a href="./work.html">Our work</a>
     <a href="./faq.html">FAQs</a>
     <a href="./quote.html">Get a quote</a>
+    <a href="./contact.html">Contact</a>
   </nav>
   <div class="socials">
-    <a href={`mailto:${s.email}`}>Email</a>
+    {s.email
+      ? <a href={`mailto:${s.email}`}>Email</a>
+      : <a href="./contact.html">Enquiry form</a>}
     {s.facebook && <a href={s.facebook} target="_blank" rel="noopener">Facebook</a>}
     {s.instagram && <a href={s.instagram} target="_blank" rel="noopener">Instagram</a>}
   </div>
   <div class="small">
-    © {year} {s.legalName} · {s.street}, {s.locality} {s.postcode}
+    © {year} {s.legalName}
+    {s.street && s.postcode
+      ? ` · ${s.street}, ${s.locality} ${s.postcode}`
+      : ` · Covering ${s.region} & Cheshire`}
     {s.companyNumber && ` · Registered in England & Wales no. ${s.companyNumber}`}
   </div>
 </footer>
