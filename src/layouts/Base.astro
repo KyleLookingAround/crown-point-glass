@@ -9,7 +9,7 @@ interface Props {
   title: string;
   description: string;
   /** which top-nav item is highlighted */
-  nav?: 'home' | 'services' | 'emergency' | 'work' | 'quote';
+  nav?: 'home' | 'services' | 'emergency' | 'work' | 'faq' | 'quote';
   /** the page's file name, e.g. "services.html" — "index.html" for home */
   page?: string;
 }
@@ -29,8 +29,9 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
 <title>{title}</title>
 <meta name="description" content={description} />
 
-<!-- Favicon (inline SVG, no external file needed) -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230f2233'/%3E%3Cg stroke='%2340c0d0' stroke-width='7' fill='none'%3E%3Crect x='20' y='18' width='60' height='64'/%3E%3Cpath d='M50 18v64M20 50h60'/%3E%3C/g%3E%3C/svg%3E">
+<!-- Favicon — the crown mark, carried over from the previous site -->
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="196x196" href="./assets/favicon-196x196.png">
 
 <!-- Open Graph / Social sharing -->
 <meta property="og:type" content="website">
@@ -49,7 +50,7 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={ogImage(s)}>
 
-<link rel="apple-touch-icon" href="./assets/icon.svg">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon-152x152.png">
 <link rel="manifest" href="./site.webmanifest">
 <link rel="sitemap" href="./sitemap-index.xml">
 
@@ -59,6 +60,9 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
 
 <!-- LocalBusiness structured data (helps Google Search & Maps). -->
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd(s)).replace(/</g, '\\u003c')} />
+
+<!-- per-page additions (e.g. the FAQ page's FAQPage structured data) -->
+<slot name="head" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -66,18 +70,14 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
 <!-- EMERGENCY BAR — always the first thing on the page -->
 <div class="alertbar">
   <span class="alertbar-dot" aria-hidden="true"></span>
-  <span class="alertbar-text">Broken glass? 24hr emergency board-up</span>
+  <span class="alertbar-text">Broken glass? 24hr emergency boarding &amp; repairs</span>
   <a class="alertbar-call" href={telHref(s.emergencyPhone)}>{s.emergencyPhone}</a>
 </div>
 
 <!-- TOP BAR -->
 <header class="topbar">
   <a class="logo" href="./">
-    <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3">
-      <rect x="5" y="4" width="30" height="32" rx="2"/>
-      <path d="M20 4v32M5 20h30"/>
-    </svg>
-    <span class="logo-text">Crown Point <em>Glass</em></span>
+    <img src="./assets/logo.png" alt={s.name} width="551" height="248" />
   </a>
   <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
   <label for="nav-toggle" class="burger" aria-label="Open menu" title="Menu" tabindex="0" role="button" aria-expanded="false" aria-controls="nav-toggle">
@@ -88,6 +88,7 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
     <a href="./services.html" class={active('services')}>Services</a>
     <a href="./emergency.html" class={active('emergency')}>Emergency</a>
     <a href="./work.html" class={active('work')}>Our work</a>
+    <a href="./faq.html" class={active('faq')}>FAQs</a>
     <a href="./quote.html" class={active('quote')}>Get a quote</a>
     <a href="index.html#contact">Contact</a>
   </nav>
@@ -113,7 +114,13 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
     <span class="press-label">Registered &amp; findable</span>
     <ul class="press-list">
       {s.credentials.map((c) => (
-        <li><a href={c.url} target="_blank" rel="noopener">{c.name} ↗</a></li>
+        <li>
+          <a href={c.url} target="_blank" rel="noopener" title={c.name}>
+            {c.image
+              ? <img src={c.image} alt={c.name} loading="lazy" />
+              : <>{c.name} ↗</>}
+          </a>
+        </li>
       ))}
     </ul>
   </aside>
@@ -122,7 +129,7 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
 <!-- FOOTER -->
 <footer>
   <p class="foot-addr">{s.region} &amp; Cheshire</p>
-  <div class="wordmark">Crown Point <em>Glass</em></div>
+  <img class="foot-logo" src="./assets/logo.png" alt={s.name} width="551" height="248" loading="lazy" />
   <p class="foot-strap">{s.strapline}</p>
 
   <div class="foot-calls">
@@ -139,6 +146,7 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
     <a href="./services.html">Services</a>
     <a href="./emergency.html">Emergency</a>
     <a href="./work.html">Our work</a>
+    <a href="./faq.html">FAQs</a>
     <a href="./quote.html">Get a quote</a>
   </nav>
   <div class="socials">

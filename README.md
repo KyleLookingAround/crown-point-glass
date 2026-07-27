@@ -1,8 +1,8 @@
 # Crown Point Glass — website
 
-Static site for **Crown Point Glass Limited** — glaziers and glass manufacturers
-covering Greater Manchester and Cheshire, with a 24-hour emergency board-up
-service.
+Static site for **Crown Point Glass Limited** — glaziers, glass manufacturers
+and locksmiths covering Greater Manchester and Cheshire, with 24-hour emergency
+boarding and repairs.
 
 Built with [Astro](https://astro.build). Every word and number on the site comes
 from the YAML files in [`content/`](content/), validated at build time — so a
@@ -14,21 +14,40 @@ rebuilt around a glazing business.
 
 ---
 
-## ⚠️ Before this goes live
+## Where the content came from
 
-Some values were taken from public listings rather than from the business, and
-**must be confirmed**. They're all marked `CONFIRM` in `content/settings.yml`:
+Most of the site is built from the previous `crownpointglass.co.uk` site: the
+six services, both phone numbers, the social accounts, the crown logo, the
+Assure certification, and the whole FAQ page including its prices, guarantees
+and turnaround times.
+
+**Those figures are quoted from the old site and should be checked before this
+goes live** — a price or guarantee that has moved on since is worse than none.
+In particular: the £160 + VAT emergency call-out (5pm–8am), the 5 year glazing
+guarantee, the 1 year locksmith guarantee, the 30–60 minute response and the
+three week installation turnaround.
+
+## ⚠️ Still unconfirmed
+
+The old site's "get in touch" page wasn't in the archive, so these are still
+guesses from public listings. All are marked `CONFIRM` in `content/settings.yml`:
 
 | Field | Current value | Why it needs checking |
 |---|---|---|
 | `street` / `postcode` | 28-30 Wilbraham Road, M14 7DW | Public sources show both this address and separate works in Denton. Set whichever address customers should actually visit. |
-| `emergencyPhone` | 07726 353078 | Listed publicly as a second number; assumed here to be the out-of-hours line. |
-| `hours` | Mon–Fri 8–5, Sat 9–1, Sun closed | Placeholder trade hours. The 24hr emergency line is separate and unaffected. |
-| `credentials` | Companies House + Facebook | Add any real trade accreditations (FENSA, CERTASS, Glass & Glazing Federation, insurance-approved schemes). |
+| `email` | info@crownpointglass.com | From a public listing, not from the old site. |
+| `hours` | Mon–Fri 8–5, Sat 9–1, Sun closed | Placeholder. Set to match the 8am–5pm emergency pricing split. The 24hr line is separate and unaffected. |
 
-The photographs are placeholders too — `public/assets/work-*.svg` are line
-drawings, not real jobs. Swap them for site photographs as they come in (see
-*Adding a photo* below).
+## Photographs
+
+**There are no real job photographs yet.** `public/assets/work-*.svg` are line
+drawings standing in for them, and `installation.jpg` (carried over from the old
+site) is stock imagery, not a Crown Point job.
+
+This is the single biggest thing that would lift the site. Ask the fitters to
+take a phone snap *before* they board up and *after* they glaze — a set of real
+before/afters would be worth more than any amount of design work. See
+*Adding a photo* below.
 
 ---
 

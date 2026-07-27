@@ -1,16 +1,19 @@
 # ════════════════════════════════════════════════════════════════════
 #  CROWN POINT GLASS · quote page (quote.html)
+#
+#  The free-survey policy, turnaround and guarantees below come from the
+#  previous crownpointglass.co.uk site. Check they're still current.
 # ════════════════════════════════════════════════════════════════════
 
-intro: "Send us the sizes, or just a photo of what's broken, and we'll come back with a price. There's no charge for a quote and no obligation to take it."
+intro: "Send us the sizes, or just a photo of what's broken, and we'll come back with a price. Site surveys and quotes are free, with no obligation to take it."
 
 quoteTypes:
   - title: "Replacement glass"
-    body: "Measure the glass itself, not the frame — width, height and the thickness if you can see it. A photo of the pane and the surrounding frame usually tells us the rest."
-  - title: "Windows & doors"
-    body: "Rough opening sizes and a photo of the outside will do to start. We'll come and measure properly before anything is ordered."
-  - title: "Commercial & trade"
-    body: "Send a schedule or a drawing and we'll price it line by line. Toughened and laminated specs, fire ratings and lead times included."
+    body: "Measure the glass itself, not the frame — width, height and the thickness if you can see it. A photo of the pane and the surrounding frame usually tells us the rest. Glass-only replacement is fine; the frames can stay."
+  - title: "Windows, doors & balustrades"
+    body: "Rough opening sizes and a photo of the outside will do to start, then we'll come and survey properly before anything is ordered. Typically a three week turnaround from survey to installation."
+  - title: "Commercial & supply only"
+    body: "Send a schedule or a drawing and we'll price it line by line — toughened and laminated specs, sizes and lead times. Happy to supply only if you're fitting it yourself."
 
 # ── What to send us ────────────────────────────────────────────────
 checklist:
@@ -21,4 +24,4 @@ checklist:
   - "Whether it's going through insurance"
 
 # ── Response promise ───────────────────────────────────────────────
-promise: "We answer quotes the same working day wherever we can. If it's an emergency, don't email — ring the 24hr number and we'll come out."
+promise: "Free survey, no obligation, and a 5 year manufacturers guarantee on glazing installs. If it's an emergency, don't email — ring the 24hr number and we'll come out."

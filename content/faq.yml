@@ -1,0 +1,65 @@
+# ════════════════════════════════════════════════════════════════════
+#  CROWN POINT GLASS · FAQ page (faq.html)
+#
+#  Ported from the FAQ on the previous crownpointglass.co.uk site.
+#  The prices, guarantees and timescales here are quoted from it — check
+#  they're still current before this goes live, and edit freely.
+# ════════════════════════════════════════════════════════════════════
+
+intro: "The questions we get asked most, about glazing and about locks. If yours isn't here, ring the office and ask."
+
+groups:
+  - title: "Windows & glazing"
+    questions:
+      - q: "How much does a site survey or inspection cost?"
+        a: "Nothing. We offer a free, no-obligation quote service."
+
+      - q: "Is there a call-out charge for the 24hr make-safe service?"
+        a: "Between 5pm and 8am there's a minimum emergency call-out charge of £160 + VAT. Outside those hours there's no call-out charge — you pay labour for any work undertaken."
+
+      - q: "Which composite doors do you install?"
+        a: "We only install Heritage doors."
+
+      - q: "How long from a survey until new windows and doors are installed?"
+        a: "We typically aim for a maximum three week turnaround."
+
+      - q: "Do you offer an install-only service?"
+        a: "No. We only fit windows and doors that we've supplied."
+
+      - q: "Do you do supply only?"
+        a: "Yes, we do."
+
+      - q: "Do you offer glass replacement only?"
+        a: "Yes — we offer a range of glazing repairs and installs, and the frames can stay where they are."
+
+      - q: "Does your glazing come with a guarantee?"
+        a: "Yes. All glazing installs come with a 5 year manufacturers guarantee."
+
+  - title: "Locksmithing"
+    questions:
+      - q: "How quickly can you get out to me?"
+        a: "It depends on the job and how urgent it is, but our emergency response time is 30–60 minutes where possible. For non-emergencies we'll always get out to you as soon as we can."
+
+      - q: "Do you have a call-out charge?"
+        a: "No. Some locksmiths charge for call-outs — we don't. You pay for labour (the time on site), plus parts if they're needed, plus VAT."
+
+      - q: "Can you get in without replacing the lock?"
+        a: "Usually, yes. Most locks — uPVC and wooden alike — can be bypassed by picking or other non-destructive techniques when it's done by an expert. We always prioritise non-destructive entry. Occasionally a lock does have to be replaced, but that depends on the lock and the circumstances."
+
+      - q: "How much will the parts cost?"
+        a: "It depends on the door and the lock. A new lock on a uPVC door varies with size, make, model and security rating, so we'll price it once we've seen it."
+
+      - q: "How many keys come with a replacement lock?"
+        a: "It varies by lock, but expect 2–3 new keys with a new door lock. Tell us if you need extra copies."
+
+      - q: "Does the work come with a guarantee?"
+        a: "Yes. All work carried out, including any parts supplied, comes with a year's guarantee."
+
+      - q: "Are your prices fixed or estimated?"
+        a: "Estimated at the point of booking. Locksmith jobs vary a lot — a burglary repair is a different proposition to a lock swap — so the parts and time needed change the final price."
+
+      - q: "Do I need a locksmith to change a lock?"
+        a: "It's the safer route. A lock fitted badly can cost more to put right later, and in some cases can affect your home insurance."
+
+      - q: "How can I pay?"
+        a: "Card and cash are both fine."

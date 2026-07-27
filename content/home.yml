@@ -1,80 +1,83 @@
 # ════════════════════════════════════════════════════════════════════
 #  CROWN POINT GLASS · home page (index.html)
+#
+#  Facts, prices and guarantees here come from the previous
+#  crownpointglass.co.uk site. Check they're still current.
 # ════════════════════════════════════════════════════════════════════
 
 # ── Hero ───────────────────────────────────────────────────────────
-eyebrow: "Greater Manchester & Cheshire · 24hr emergency cover"
+eyebrow: "Greater Manchester & Cheshire · 24hr boarding & repairs"
 headline:
   line1: "Glass made,"
   line2: "supplied"
   line3: "and fitted."
-tagline: "Glaziers and glass manufacturers working across Greater Manchester and Cheshire. Double glazing, windows and doors, made-to-measure glass — and an emergency board-up crew that answers the phone at three in the morning."
+tagline: "Glaziers, glass manufacturers and locksmiths covering Greater Manchester and Cheshire. Windows, doors, glazing and balustrades — plus emergency boarding and repairs, day or night."
 
 # ── Scrolling capability strip ─────────────────────────────────────
 marquee:
-  - "Double glazing replacement"
-  - "Emergency board-up"
+  - "24hr boarding & repairs"
+  - "Glass manufacturing"
   - "Windows & doors"
-  - "Toughened glass"
-  - "Locks & handles"
-  - "Made to measure"
-  - "Commercial shopfronts"
-  - "On site within the hour"
+  - "Glazing"
+  - "Balustrades"
+  - "Locksmithing"
+  - "Assure certified installer"
+  - "5 year glazing guarantee"
 
 # ── Emergency band (the loud amber strip near the top) ─────────────
 emergency:
   label: "Broken glass right now?"
   headline: "Boarded up and made safe — 24 hours a day."
-  body: "Break-in, storm damage or an accident, our make-safe crew covers the Manchester area around the clock and aims to be on site within the hour. We board up, clear the glass, secure the opening, then come back and glaze it properly."
+  body: "Break-in, storm damage or an accident, we're out day or night with a 30–60 minute response wherever possible. We board the opening, clear the glass and secure the property — and because our locksmith is on the same van, a forced door gets a working lock the same visit."
   cta: "What happens on a call-out"
 
 # ── About ──────────────────────────────────────────────────────────
 story:
   label: "01 — Who we are"
   heading: "A glass works, not a middleman."
-  lede: "We cut, toughen and fit our own glass — so a job doesn't sit waiting on somebody else's delivery van."
+  lede: "We make our own glass and fit it with our own installers — so a job doesn't sit waiting on somebody else's delivery van."
   paragraphs:
-    - "Crown Point Glass is a glass manufacturer and glazing contractor covering Greater Manchester and Cheshire. Because the glass is made in our own works, we control the lead time on the things that usually hold a job up: an odd-sized pane, a toughened unit, a shopfront that has to be right first time."
-    - "The work splits three ways. Planned glazing — replacing failed double-glazed units, fitting new windows and doors, cutting glass to order. Reactive work — the 24-hour board-up and make-safe service. And the trade side, supplying glass to builders, joiners and other glaziers across the region."
-    - "Domestic or commercial, one pane or a whole frontage, the promise is the same: turn up when we said, do it properly, leave the place tidy."
+    - "Crown Point Glass is a glass manufacturer, glazing contractor and locksmith covering Greater Manchester and Cheshire. Because the glass is made in our own works, we control the lead time on the things that usually hold a job up: an odd-sized pane, a toughened unit, a shopfront that has to be right first time."
+    - "The work splits three ways. Planned installation — windows, doors, glazing and balustrades, typically a three week turnaround from survey. Reactive work — 24 hour boarding and repairs, with a locksmith on the same van. And supply, making glass to order for trade and for anyone who'd rather fit it themselves."
+    - "We're an Assure certified installer, our glazing installs carry a 5 year manufacturers guarantee, and surveys and quotes are free with no obligation. Domestic or commercial, one pane or a whole frontage — turn up when we said, do it properly, leave the place tidy."
   signature: "Crown Point Glass"
 
 # ── "What we do" — three cards ─────────────────────────────────────
 inside:
   - title: "Made in our own works"
-    body: "Cut, toughened and sealed on our own premises. Made-to-measure panes, replacement double-glazed units, mirrors, splashbacks and safety glass — without waiting on a third-party supplier."
-  - title: "Fitted by our own fitters"
-    body: "Windows, doors, shopfronts and replacement units, installed by the people who made the glass. Single and double glazing, uPVC and aluminium, plus locks, hinges and handles while we're there."
-  - title: "Answered out of hours"
-    body: "Emergency board-up and make-safe, 24 hours a day across the Manchester area. Secured the same night, glazed properly as soon as the unit's ready."
+    body: "Cut, toughened and made up on our own premises — panes, sealed units, balustrade glass and safety glass, without waiting on a third-party supplier. Supply-only is fine if you'd rather fit it yourself."
+  - title: "Fitted by our own installers"
+    body: "Windows, doors, glazing and balustrades installed by the people who made the glass. Assure certified, Heritage composite doors, and a 5 year manufacturers guarantee on glazing installs."
+  - title: "A locksmith on the same van"
+    body: "Emergency boarding and repairs around the clock, with non-destructive entry prioritised and no call-out charge on locksmith work. A forced door gets glazed and locked on one visit."
 
 # ── Who we work for ────────────────────────────────────────────────
 sectors:
   - category: "Homeowners"
-    name: "Domestic glazing"
-    body: "Misted or blown double glazing, cracked panes, new windows and doors, mirrors and splashbacks — priced up front, no call-out charge on quotes."
+    name: "Domestic"
+    body: "Misted or blown double glazing, cracked panes, new windows and doors, balustrades and lock-outs. Free no-obligation survey and quote."
   - category: "Business & property"
-    name: "Commercial glazing"
-    body: "Shopfronts, offices, schools and landlords. Toughened and laminated glass, fire-rated units, manifestation, and a make-safe number that gets answered out of hours."
+    name: "Commercial"
+    body: "Shopfronts, offices, schools and landlords. Toughened and laminated glass, balustrades, and a number that gets answered out of hours."
   - category: "Trade"
-    name: "Glass supply"
-    body: "Cut-to-size and toughened glass supplied to builders, joiners, shopfitters and other glaziers across Greater Manchester and Cheshire."
+    name: "Supply only"
+    body: "Cut-to-size and toughened glass and made-to-order sealed units, supplied to builders, joiners, shopfitters and other glaziers across the region."
 
 # ── Quote band (photo + line) ──────────────────────────────────────
 quote:
-  text: "Boarded up the same night, new unit in by the end of the week."
+  text: "Boarded up the same night, new unit in within the week."
   by: "What a call-out looks like"
   image: /assets/quote-band.svg
 
 # ── Coverage panel ─────────────────────────────────────────────────
 coverage:
   image: /assets/coverage.svg
-  caption: "Greater Manchester and Cheshire, with 24hr emergency cover across the Manchester area."
+  caption: "Greater Manchester and Cheshire, with 24hr boarding and repairs across the Manchester area."
   blurb: "We're a local firm, not a national call centre. The van comes from our own works, the fitter is on our own books, and the person who answers the phone knows the job."
 
 # ── Callback strip ─────────────────────────────────────────────────
 callback:
-  blurb: "Send us the measurements, or just a photo of the damage, and we'll come back with a price. No call-out charge to quote."
+  blurb: "Send us the measurements, or just a photo of the damage, and we'll come back with a price. Surveys and quotes are free, with no obligation."
   action: ""          # optional form endpoint (e.g. a Formspree URL) — blank uses email
   fieldName: "email"
 

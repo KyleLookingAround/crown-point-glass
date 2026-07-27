@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import { getSettings, telHref } from '../lib/site';
+
+const s = await getSettings();
+const entry = await getEntry('faq', 'main');
+if (!entry) throw new Error('content/faq.yml is missing');
+const f = entry.data;
+
+// FAQPage structured data — this is the markup Google uses to show
+// questions directly in search results, so it's worth carrying.
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: f.groups.flatMap((g) =>
+    g.questions.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  ),
+};
+---
+
+<Base
+  title={`FAQs — ${s.name}`}
+  description={`Common questions about glazing, windows, doors and locksmithing answered by ${s.name}, covering ${s.region} and Cheshire.`}
+  nav="faq"
+  page="faq.html">
+
+<script type="application/ld+json" set:html={JSON.stringify(faqLd).replace(/</g, '\\u003c')} slot="head" />
+
+<!-- PAGE HEADER -->
+<section class="page-head">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">FAQs</div>
+      <h1 class="page-title">Things people <em>ask.</em></h1>
+      <p class="page-lede">{f.intro}</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<section class="faq">
+  <div class="faq-inner">
+    {f.groups.map((g) => (
+      <div class="faq-group">
+        <h2 class="faq-group-title">{g.title}</h2>
+        <div class="faq-list">
+          {g.questions.map((item) => (
+            <details class="faq-item">
+              <summary>
+                <span class="faq-q">{item.q}</span>
+                <span class="faq-mark" aria-hidden="true"></span>
+              </summary>
+              <p class="faq-a">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- CTA strip -->
+<section class="community">
+  <div class="community-inner">
+    <div class="eyebrow">Not answered here?</div>
+    <h2>Give us a <em>ring.</em></h2>
+    <p>Quicker than typing it out — and we'll tell you straight whether it's a job for us.</p>
+    <div class="hero-cta hero-cta--centre">
+      <a class="btn" href={telHref(s.phone)}>Call {s.phone}</a>
+      <a class="btn btn-ghost" href="./quote.html">Get a quote</a>
+    </div>
+  </div>
+</section>
+
+</Base>

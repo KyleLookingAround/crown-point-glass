@@ -1,82 +1,67 @@
 # ════════════════════════════════════════════════════════════════════
 #  CROWN POINT GLASS · services page (services.html)
 #
-#  Each service is a card. `icon` picks one of the built-in line drawings:
-#  window · door · shield · pane · lock · van · mirror · shop
+#  These are the six services the business runs, matching the structure of
+#  the previous crownpointglass.co.uk site.
+#
+#  `icon` picks one of the built-in line drawings:
+#  window · door · shield · pane · lock · van · mirror · shop · rail
 # ════════════════════════════════════════════════════════════════════
 
-intro: "Everything from a single cracked pane to a full commercial frontage. Glass cut and toughened in our own works, fitted by our own installers, across Greater Manchester and Cheshire."
-note: "No call-out charge to quote. Emergency make-safe available 24/7."
+intro: "Glass manufactured in our own works, installed by our own fitters, and a locksmith on the same van. Domestic, commercial and trade, across Greater Manchester and Cheshire."
+note: "Free, no-obligation quotes and site surveys. Emergency boarding and repairs 24/7."
 
 services:
-  - icon: pane
-    title: "Double glazing replacement"
-    body: "Misted, blown or cracked sealed units swapped for new ones. We measure, make the unit and fit it — the frames stay where they are, so it's a fraction of the cost of new windows."
+  - icon: shield
+    title: "24 hour call-out"
+    body: "Emergency boarding and repairs, day or night. We make the property safe and secure first, then come back and glaze it properly once the unit is ready."
     points:
-      - "Misted and blown units"
-      - "A-rated and low-E glass"
-      - "Argon-filled and warm-edge spacers"
-      - "Guaranteed sealed units"
+      - "Minimum call-out £160 + VAT between 5pm and 8am"
+      - "No call-out charge between 8am and 5pm"
+      - "Labour charged for any work undertaken"
+      - "Break-ins, storm damage and accidental breakage"
+
+  - icon: pane
+    title: "Glass manufacturing"
+    body: "We make the glass ourselves rather than waiting on a supplier — so odd sizes, toughened units and one-off panes don't hold a job up."
+    points:
+      - "Cut and toughened to your sizes"
+      - "Sealed units made to order"
+      - "Supply-only available"
+      - "Trade welcome"
 
   - icon: window
-    title: "Windows & doors"
-    body: "Supply and installation of uPVC and aluminium windows and doors, for houses, flats and commercial premises. Replacements for failed frames, and new openings worked in with the builder."
+    title: "Window & door installation"
+    body: "Supply and installation of windows and doors for homes and commercial premises. We survey, make and fit — we don't fit frames supplied by anyone else."
     points:
-      - "uPVC and aluminium"
-      - "Casement, sash and tilt-and-turn"
-      - "Composite and patio doors"
-      - "Trickle vents and restrictors"
-
-  - icon: shield
-    title: "Emergency board-up & make-safe"
-    body: "24 hours a day across the Manchester area, aiming to be on site within the hour. We board the opening, clear the broken glass and make the property secure, then return to glaze it properly."
-    points:
-      - "Break-ins and vandalism"
-      - "Storm and accidental damage"
-      - "Insurance work and reports"
-      - "Commercial and residential"
-
-  - icon: shop
-    title: "Shopfronts & commercial glazing"
-    body: "Toughened and laminated shopfront glass, entrance doors, partitions and manifestation. Out-of-hours fitting where a daytime closure isn't an option."
-    points:
-      - "Toughened and laminated"
-      - "Fire-rated glazing"
-      - "Manifestation and film"
-      - "Out-of-hours installation"
+      - "Typically a 3 week turnaround from survey"
+      - "Heritage composite doors"
+      - "Free no-obligation site survey"
+      - "Supply and install only — no install-only service"
 
   - icon: mirror
-    title: "Made-to-measure glass"
-    body: "Cut, polished, drilled and toughened to your sizes in our own works. Table tops, shelves, mirrors, splashbacks, cabinet glass and greenhouse panes."
+    title: "Glazing"
+    body: "Glazing repairs and installs of every size, from a single misted unit to a full replacement. Glass-only replacement is fine — the frames can stay where they are."
     points:
-      - "Mirrors and splashbacks"
-      - "Table tops and shelving"
-      - "Polished and bevelled edges"
-      - "Toughened safety glass"
+      - "5 year manufacturers guarantee on installs"
+      - "Misted and blown double-glazed units"
+      - "Glass replacement only available"
+      - "Domestic and commercial"
+
+  - icon: rail
+    title: "Balustrades"
+    body: "Glass balustrades and railings for stairs, landings, balconies and terraces — measured, made and installed by us."
+    points:
+      - "Toughened and laminated safety glass"
+      - "Stairs, landings and balconies"
+      - "Internal and external"
+      - "Made to measure"
 
   - icon: lock
-    title: "Locks, handles & hardware"
-    body: "Locksmithing alongside the glazing — so a forced door gets a working lock the same visit, not a second appointment with somebody else."
+    title: "Locksmithing"
+    body: "A locksmith alongside the glazing, so a forced door gets a working lock on the same visit. Non-destructive entry wherever possible — we'd rather pick a lock than replace it."
     points:
-      - "Lock changes and upgrades"
-      - "Euro cylinders and multipoints"
-      - "Hinges, handles and letterplates"
-      - "Snapped and seized locks"
-
-  - icon: van
-    title: "Trade glass supply"
-    body: "Cut-to-size and processed glass supplied to builders, joiners, shopfitters and other glaziers. Collection from the works or delivery across the region."
-    points:
-      - "Cut to size and toughened"
-      - "Sealed units to order"
-      - "Trade pricing"
-      - "Collection or delivery"
-
-  - icon: door
-    title: "Insurance & landlord work"
-    body: "Regular glazing and make-safe work for letting agents, housing providers and insurers, with photographs, reports and invoicing that match what the claim needs."
-    points:
-      - "Photographic reports"
-      - "Direct-to-insurer invoicing"
-      - "Multi-property schedules"
-      - "Priority response"
+      - "No call-out charge — labour, parts and VAT only"
+      - "30–60 minute emergency response where possible"
+      - "Non-destructive entry prioritised"
+      - "1 year guarantee on work and parts"

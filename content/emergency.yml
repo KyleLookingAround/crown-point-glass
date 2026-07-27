@@ -1,14 +1,17 @@
 # ════════════════════════════════════════════════════════════════════
 #  CROWN POINT GLASS · emergency page (emergency.html)
+#
+#  The charges and response times below are taken from the FAQ on the
+#  previous crownpointglass.co.uk site — check they're still current.
 # ════════════════════════════════════════════════════════════════════
 
-intro: "Broken glass doesn't wait for office hours. Our make-safe service covers the Manchester area 24 hours a day, and we aim to be on site within the hour."
-promise: "On site within the hour, across the Manchester area"
+intro: "Broken glass doesn't wait for office hours. Emergency boarding and repairs run 24 hours a day, seven days a week — we make the property safe first, then glaze it properly once the unit's ready."
+promise: "24hr boarding & repairs · 30–60 minute response where possible"
 
 # ── What we come out to ────────────────────────────────────────────
 callouts:
   - title: "Break-ins"
-    body: "Forced doors, smashed windows and damaged frames. We board the opening, make the door secure and change the lock if it's been through."
+    body: "Forced doors, smashed windows and damaged frames. We board the opening, make the door secure and sort the lock while we're there — our locksmith is on the same van."
   - title: "Storm & impact damage"
     body: "Wind-blown panes, fallen branches, vehicle impact. Cleared, boarded and made watertight so the property isn't standing open overnight."
   - title: "Accidental breakage"
@@ -19,21 +22,21 @@ callouts:
 # ── The order it happens in ────────────────────────────────────────
 steps:
   - title: "You call"
-    body: "The emergency number is answered by someone who can dispatch, not a message service. Tell us the address, what's broken and roughly how big it is."
+    body: "Ring the emergency number and tell us the address, what's broken and roughly how big it is. We'll tell you what it'll cost before anyone sets off."
   - title: "We make it safe"
-    body: "The crew clears the broken glass, boards the opening and secures the property. Locks changed there and then if the door's been forced."
+    body: "The crew clears the broken glass, boards the opening and secures the property. If the door's been forced, the lock gets dealt with there and then — non-destructive entry wherever it's possible."
   - title: "We measure up"
     body: "While we're on site we take the sizes for the permanent repair, and photograph the damage for your insurer if you need it."
   - title: "We glaze it properly"
-    body: "The glass is cut and made up in our own works, then fitted at a time that suits — usually within a few days, sooner where we can."
+    body: "The glass is made up in our own works and fitted at a time that suits. Glazing installs carry a 5 year manufacturers guarantee."
 
 # ── Practical notes ────────────────────────────────────────────────
 notes:
-  - label: "Coverage"
-    body: "24hr make-safe across the Manchester area; planned glazing throughout Greater Manchester and Cheshire."
-  - label: "Insurance"
-    body: "We photograph and document the damage and can invoice insurers directly on approved claims."
-  - label: "Payment"
-    body: "Make-safe is charged as a call-out plus materials, quoted before we start wherever the situation allows."
+  - label: "Call-out charge"
+    body: "Minimum £160 + VAT between 5pm and 8am. Between 8am and 5pm there's no call-out charge — you pay labour for any work undertaken."
+  - label: "Response"
+    body: "Emergency response of 30–60 minutes where possible. The type of job affects how fast we can be with you."
+  - label: "Locksmithing"
+    body: "No call-out charge on locksmith work at any hour — labour plus parts plus VAT. All locksmith work carries a year's guarantee."
   - label: "Boarding"
-    body: "Boards stay up until the replacement glass is in. There's no separate charge to come back and take them down."
+    body: "Boards stay up until the replacement glass is in, and there's no separate charge to come back and take them down."

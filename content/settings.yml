@@ -5,25 +5,25 @@
 #  contact panel, the opening-hours table, the live open/closed pill and
 #  the Google listing (structured data). Change it once, here.
 #
-#  ⚠ CHECK BEFORE GOING LIVE — the values marked "CONFIRM" were taken
-#  from public listings, not from the business directly.
+#  Most values below come from the previous crownpointglass.co.uk site.
+#  The few that weren't on the archived pages are marked CONFIRM.
 # ════════════════════════════════════════════════════════════════════
 
 url: https://crownpointglass.co.uk/
 name: Crown Point Glass
 legalName: Crown Point Glass Limited
-description: Glaziers and glass manufacturers covering Greater Manchester and Cheshire — double glazing, window and door installation, custom glass and 24hr emergency board-up.
-strapline: Glass made, supplied and fitted properly.
+description: Glaziers, glass manufacturers and locksmiths covering Greater Manchester and Cheshire — window and door installation, glazing, balustrades and 24hr emergency boarding and repairs.
+strapline: Glass made, supplied and fitted.
 
 # ── Contact ────────────────────────────────────────────────────────
+# Both numbers are as advertised in the banner on the old site.
 phone: '0161 943 5424'
-emergencyPhone: '07726 353078'   # CONFIRM — listed publicly as a second number; assumed to be the out-of-hours line
-email: info@crownpointglass.com
+emergencyPhone: '07726 353078'
+email: info@crownpointglass.com   # CONFIRM — not shown on the archived pages
 
 # ── Where we are ───────────────────────────────────────────────────
-# CONFIRM the trading address. Public sources show a Wilbraham Road
-# registered office and separate works in Denton — set whichever address
-# customers should actually turn up to.
+# ⚠ CONFIRM — the old site's "get in touch" page wasn't in the archive,
+# so this address still comes from public listings rather than from you.
 street: 28-30 Wilbraham Road
 locality: Manchester
 region: Greater Manchester
@@ -32,7 +32,7 @@ country: GB
 companyNumber: '14725550'
 
 # ── Where we work ──────────────────────────────────────────────────
-areasIntro: We cover Greater Manchester and Cheshire from our works, with emergency call-out across the Manchester area around the clock.
+areasIntro: We cover Greater Manchester and Cheshire, with emergency boarding and repairs across the Manchester area around the clock.
 areas:
   - Manchester
   - Stockport
@@ -50,13 +50,15 @@ areas:
   - Warrington
 
 # ── Social ─────────────────────────────────────────────────────────
-facebook: https://www.facebook.com/crownpointglassltd/
+facebook: https://www.facebook.com/secure24glazing/
+instagram: https://www.instagram.com/cjllocksmith/
+instagramHandle: '@cjllocksmith'
 previewImage: /assets/share-card.png
 
 # ── Opening hours ──────────────────────────────────────────────────
-# ⚠ CONFIRM — these are placeholder trade hours. The emergency line runs
-# 24/7 regardless of what this table says; this is the office/works.
-# One row per day or block of days. Times are 24-hour.
+# ⚠ CONFIRM — placeholder office hours; the archived pages didn't list any.
+# They're set to 08:00–17:00 to line up with the emergency pricing on the
+# old site, which charges a call-out between 5pm and 8am.
 hours:
   - fromDay: Mo
     toDay: Fr
@@ -69,12 +71,14 @@ hours:
     closed: true
 
 # The out-of-hours promise shown next to the hours table.
-emergencyNote: Emergency board-up and make-safe runs 24 hours a day, seven days a week — including when the office is shut.
+emergencyNote: Emergency boarding and repairs run 24 hours a day, seven days a week — including when the office is shut. Call 07726 353078.
 
 # ── Trust strip (shown above the footer) ───────────────────────────
-# Certifications, memberships or listings. Remove any that don't apply.
 credentials:
+  - name: Assure Certified Installer
+    url: https://www.assurecertification.co.uk/
+    image: /assets/assure-certified.png
   - name: Companies House — Crown Point Glass Limited
     url: https://find-and-update.company-information.service.gov.uk/company/14725550
   - name: Find us on Facebook
-    url: https://www.facebook.com/crownpointglassltd/
+    url: https://www.facebook.com/secure24glazing/

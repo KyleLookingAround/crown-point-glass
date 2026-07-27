@@ -29,7 +29,7 @@ const DAY = z.enum(['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']);
 const HHMM = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, 'use 24-hour time, e.g. 08:00');
 
 // The line drawings available to a service card (see ServiceIcon.astro).
-const ICON = z.enum(['window', 'door', 'shield', 'pane', 'lock', 'van', 'mirror', 'shop']);
+const ICON = z.enum(['window', 'door', 'shield', 'pane', 'lock', 'van', 'mirror', 'shop', 'rail']);
 
 const settings = defineCollection({
   loader: single('content/settings.yml'),
@@ -76,7 +76,12 @@ const settings = defineCollection({
       }),
     ),
     emergencyNote: z.string(),
-    credentials: z.array(z.object({ name: z.string(), url: z.string().url() })).default([]),
+    credentials: z.array(z.object({
+      name: z.string(),
+      url: z.string().url(),
+      // optional badge — shown instead of the text when present
+      image: image.optional(),
+    })).default([]),
   }),
 });
 
@@ -162,4 +167,15 @@ const quote = defineCollection({
   }),
 });
 
-export const collections = { settings, home, services, gallery, emergency, quote };
+const faq = defineCollection({
+  loader: single('content/faq.yml'),
+  schema: z.object({
+    intro: z.string(),
+    groups: z.array(z.object({
+      title: z.string(),
+      questions: z.array(z.object({ q: z.string(), a: z.string() })).min(1),
+    })).min(1),
+  }),
+});
+
+export const collections = { settings, home, services, gallery, emergency, quote, faq };

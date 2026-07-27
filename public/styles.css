@@ -19,9 +19,11 @@
   --steel: #6b8599;        /* muted labels */
   --steel-light: #9db0be;
 
-  --glass: #2fb0c4;        /* the accent — cut glass edge */
-  --glass-deep: #17869a;   /* same hue, safe as text on white */
-  --glass-pale: #dcf0f4;
+  /* The accent is Crown Point's own brand blue, carried over from the
+     previous site (#085eb4), with a brighter tint for use on dark bands. */
+  --glass: #2b8ae0;        /* accent on dark surfaces — rules, icons */
+  --glass-deep: #085eb4;   /* the brand blue; dark enough for text on white */
+  --glass-pale: #e3eefb;
 
   --amber: #f5a623;        /* EMERGENCY ONLY */
   --amber-deep: #a8680a;   /* amber that passes as text on white */
@@ -104,16 +106,11 @@ img { max-width: 100%; }
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
 }
-.topbar .logo {
-  display: inline-flex; align-items: center; gap: 11px;
-  color: var(--ink); text-decoration: none;
+.topbar .logo { display: inline-flex; align-items: center; text-decoration: none; }
+.topbar .logo img {
+  display: block; width: auto; height: 46px;
+  border-radius: 3px;
 }
-.logo-mark { width: 30px; height: 30px; flex: none; color: var(--glass-deep); }
-.logo-text {
-  font-family: var(--display); font-weight: 700; font-size: 21px;
-  letter-spacing: -0.025em; line-height: 1;
-}
-.logo-text em { color: var(--glass-deep); }
 
 .topbar nav { display: flex; gap: 24px; }
 .topbar nav a {
@@ -188,7 +185,7 @@ img { max-width: 100%; }
 }
 @media (max-width: 620px) {
   .topbar .status { display: none; }
-  .logo-text { font-size: 18px; }
+  .topbar .logo img { height: 38px; }
 }
 
 /* ===== Hero ===== */
@@ -648,12 +645,10 @@ body:has(.lightbox:target) { overflow: hidden; }
 /* ===== Footer ===== */
 footer { background: var(--navy-deep); color: #b8ccd8; padding: 60px 28px 32px; text-align: center; }
 footer .foot-addr { font-weight: 700; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--glass); margin-bottom: 12px; }
-footer .wordmark {
-  font-family: var(--display); font-weight: 700;
-  font-size: clamp(34px, 7vw, 68px); line-height: 1; letter-spacing: -0.035em;
-  color: #fff; margin-bottom: 10px;
+.foot-logo {
+  display: block; width: auto; height: clamp(64px, 12vw, 104px);
+  margin: 0 auto 16px; border-radius: 4px;
 }
-footer .wordmark em { color: var(--glass); }
 .foot-strap { font-size: 15px; color: var(--steel-light); margin-bottom: 30px; }
 
 .foot-calls { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-bottom: 30px; }
@@ -711,6 +706,38 @@ footer .small { font-size: 11.5px; letter-spacing: 0.04em; color: var(--steel); 
 .bc-num { font-family: var(--display); font-weight: 700; font-size: clamp(26px, 3.6vw, 38px); letter-spacing: -0.025em; }
 .bc-sub { font-size: 12.5px; color: var(--steel-light); }
 @media (max-width: 820px) { .page-head-grid { grid-template-columns: 1fr; gap: 28px; } }
+
+/* ===== FAQ ===== */
+.faq { padding: 70px 28px 96px; background: var(--paper); }
+.faq-inner { max-width: 860px; margin: 0 auto; display: grid; gap: 54px; }
+.faq-group-title {
+  font-size: clamp(24px, 3.2vw, 34px); margin-bottom: 18px;
+  padding-bottom: 14px; border-bottom: 2px solid var(--glass);
+}
+.faq-list { display: grid; gap: 0; }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item summary {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 20px;
+  padding: 20px 0; cursor: pointer; list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-q { font-family: var(--display); font-weight: 700; font-size: 17.5px; color: var(--ink); letter-spacing: -0.015em; }
+.faq-item summary:hover .faq-q { color: var(--glass-deep); }
+/* the +/− marker, drawn in CSS so there's no icon font to load */
+.faq-mark { position: relative; flex: none; width: 18px; height: 18px; margin-top: 3px; }
+.faq-mark::before, .faq-mark::after {
+  content: ''; position: absolute; background: var(--glass-deep);
+  transition: transform .2s ease, opacity .2s ease;
+}
+.faq-mark::before { top: 8px; left: 0; width: 18px; height: 2.5px; }
+.faq-mark::after { left: 8px; top: 0; width: 2.5px; height: 18px; }
+.faq-item[open] .faq-mark::after { transform: rotate(90deg); opacity: 0; }
+.faq-a { padding: 0 0 22px; font-size: 15.5px; line-height: 1.7; max-width: 70ch; }
+@media (max-width: 600px) { .faq { padding: 50px 22px 70px; } .faq-q { font-size: 16px; } }
+
+/* the Assure badge and any other image credentials in the trust strip */
+.press-list img { display: block; height: 26px; width: auto; }
+.press-list a:has(img) { padding: 8px 14px; background: #fff; }
 
 /* ===== Scroll-fill pane (built by app.ts) ===== */
 .scroll-pane {
