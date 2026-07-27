@@ -94,6 +94,7 @@ const c = entry.data;
           <li><span class="lbl">Office</span><a href={telHref(s.phone)}>{s.phone}</a></li>
           {s.email && <li><span class="lbl">Email</span><a href={`mailto:${s.email}`}>{s.email}</a></li>}
           {s.facebook && <li><span class="lbl">Facebook</span><a href={s.facebook} target="_blank" rel="noopener">Message us</a></li>}
+          {s.instagram && <li><span class="lbl">Instagram</span><a href={s.instagram} target="_blank" rel="noopener">{s.instagramHandle ?? 'See our work'}</a></li>}
         </ul>
         <ul class="hours-list">
           {hoursRows(s).map((hr) => <li><span class="hl-day">{hr.day}</span><span class="hl-time">{hr.time}</span></li>)}

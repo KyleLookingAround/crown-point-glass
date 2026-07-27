@@ -67,9 +67,12 @@ areas:
   - Warrington
 
 # ── Social ─────────────────────────────────────────────────────────
+# The old site linked a locksmith account (@cjllocksmith); this is the
+# business's own Instagram. The Facebook page still trades under a
+# different name — worth deciding which identity leads.
 facebook: https://www.facebook.com/secure24glazing/
-instagram: https://www.instagram.com/cjllocksmith/
-instagramHandle: '@cjllocksmith'
+instagram: https://www.instagram.com/crownpointglass
+instagramHandle: '@crownpointglass'
 previewImage: /assets/share-card.png
 
 # ── Opening hours ──────────────────────────────────────────────────
