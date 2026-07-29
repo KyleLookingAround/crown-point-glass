@@ -1,0 +1,41 @@
+---
+/**
+ * The map, loaded only when someone asks for it.
+ *
+ * A Google Maps embed weighs a few hundred kilobytes and sets Google cookies
+ * as soon as it renders — before the visitor has done anything, on a page
+ * they came to for a phone number. So the page ships a light placeholder and
+ * app.ts swaps in the real iframe on click.
+ *
+ * With JavaScript off the placeholder stays put and the "Open in Google Maps"
+ * link below it still gets people where they're going, which is what the map
+ * was for.
+ */
+import { getSettings, mapEmbedUrl, directionsUrl, hasAddress } from '../lib/site';
+
+interface Props {
+  /** `wide` is the 4:3 crop used on the contact page; default is 4:5. */
+  variant?: 'default' | 'wide';
+  /** Link text under the map. */
+  linkLabel?: string;
+}
+
+const { variant = 'default', linkLabel = 'Get directions →' } = Astro.props;
+const s = await getSettings();
+const label = hasAddress(s)
+  ? `${s.name}, ${s.street}, ${s.locality}`
+  : `The area ${s.name} covers`;
+---
+
+<div class={`map-card${variant === 'wide' ? ' map-card--wide' : ''}`} data-map={mapEmbedUrl(s)} data-map-title={label}>
+  <button class="map-load" type="button">
+    <svg class="map-load-pin" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.6" />
+    </svg>
+    <span class="map-load-main">{label}</span>
+    <span class="map-load-sub">Show the map</span>
+    <span class="map-load-note">Loads from Google — nothing is sent until you tap</span>
+  </button>
+</div>
+<a class="map-link" href={directionsUrl(s)} target="_blank" rel="noopener">{linkLabel}</a>

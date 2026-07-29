@@ -1,0 +1,71 @@
+---
+/**
+ * Where the enquiry and quote forms land after a successful send (the `_next`
+ * field in EnquiryForm.astro points here).
+ *
+ * It's `noindex` — a thank-you page has nothing to offer a search result, and
+ * an indexed one gets people arriving on it without having sent anything.
+ * Note the emergency number is here too: someone whose window is out has just
+ * sent a form and may well need to ring anyway.
+ */
+import Base from '../layouts/Base.astro';
+import { getSettings, telHref } from '../lib/site';
+
+const s = await getSettings();
+---
+
+<Base
+  title={`Thanks — ${s.name}`}
+  description={`Your enquiry has reached ${s.name}. We'll come back to you shortly.`}
+  page="thanks.html"
+  noindex>
+
+<section class="page-head">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">Message sent</div>
+      <h1 class="page-title">Got it — <em>thanks.</em></h1>
+      <p class="page-lede">
+        Your enquiry has come through. We'll read it and come back to you, usually
+        the same working day; if it lands overnight or over the weekend you'll hear
+        from us when the office opens.
+      </p>
+      <p class="page-note">
+        If it turns out to be urgent — the property is insecure, or open to the
+        weather — don't wait on the reply. Ring the 24hr line and we'll come out.
+      </p>
+      <div class="hero-cta">
+        <a class="btn" href={telHref(s.emergencyPhone)}>Call {s.emergencyPhone}</a>
+        <a class="btn btn-ghost" href="./">Back to the site</a>
+      </div>
+    </div>
+    <div>
+      <div class="call-stack">
+        <a class="bigcall" href={telHref(s.emergencyPhone)}>
+          <span class="bc-lbl">24hr emergency</span>
+          <span class="bc-num">{s.emergencyPhone}</span>
+          <span class="bc-sub">Answered day and night</span>
+        </a>
+        <a class="bigcall bigcall--office" href={telHref(s.phone)}>
+          <span class="bc-lbl">Office</span>
+          <span class="bc-num">{s.phone}</span>
+          <span class="bc-sub">During working hours</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="community">
+  <div class="community-inner">
+    <div class="eyebrow">While you're here</div>
+    <h2>Some of the <em>jobs.</em></h2>
+    <p>Shopfronts, replacement units, made-to-measure glass and emergency board-ups across Greater Manchester and Cheshire.</p>
+    <div class="hero-cta hero-cta--centre">
+      <a class="btn btn-ghost" href="./work.html">See our work</a>
+      <a class="btn btn-ghost" href="./faq.html">Read the FAQs</a>
+    </div>
+  </div>
+</section>
+
+</Base>

@@ -14,8 +14,14 @@ export default defineConfig({
   build: { format: 'file' },
   integrations: [
     sitemap({
+      // 404 and the post-submission thank-you page are noindex — there's no
+      // sense inviting a crawler to either of them.
+      filter: (page) => !/\/(404|thanks)(\.html)?\/?$/.test(page),
       // build.format 'file' serves pages as /services.html — put that real URL
-      // in the sitemap (the integration would otherwise drop the extension)
+      // in the sitemap (the integration would otherwise drop the extension).
+      // The home page is left alone: the sitemap writer normalises the root to
+      // a bare origin, which is the same URL as the trailing-slash form the
+      // page declares as canonical.
       serialize: (item) => {
         const url = new URL(item.url);
         if (url.pathname !== '/' && !url.pathname.endsWith('.html')) {

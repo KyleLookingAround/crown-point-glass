@@ -3,22 +3,41 @@
  * The shared shell: head (meta/OG/JSON-LD), top bar with the emergency
  * number, credentials strip and footer. Every page renders inside this.
  */
-import { getSettings, ogImage, hoursData, jsonLd, statusShort, telHref } from '../lib/site';
+import { getSettings, ogImage, hoursData, jsonLd, breadcrumbLd, canonicalUrl, statusShort, telHref } from '../lib/site';
+import { imageSize } from '../lib/imageSize';
+
+type Nav = 'home' | 'services' | 'emergency' | 'work' | 'faq' | 'quote' | 'contact';
 
 interface Props {
   title: string;
   description: string;
   /** which top-nav item is highlighted */
-  nav?: 'home' | 'services' | 'emergency' | 'work' | 'faq' | 'quote' | 'contact';
+  nav?: Nav;
   /** the page's file name, e.g. "services.html" — "index.html" for home */
   page?: string;
+  /** keep this page out of search results (the thank-you page) */
+  noindex?: boolean;
 }
 
-const { title, description, nav, page = '' } = Astro.props;
+// The nav, defined once and rendered in both the header and the footer, so
+// adding a page can't leave the two lists disagreeing.
+const LINKS: { nav: Nav; href: string; label: string }[] = [
+  { nav: 'home', href: './', label: 'Home' },
+  { nav: 'services', href: './services.html', label: 'Services' },
+  { nav: 'emergency', href: './emergency.html', label: 'Emergency' },
+  { nav: 'work', href: './work.html', label: 'Our work' },
+  { nav: 'faq', href: './faq.html', label: 'FAQs' },
+  { nav: 'quote', href: './quote.html', label: 'Get a quote' },
+  { nav: 'contact', href: './contact.html', label: 'Contact' },
+];
+
+const { title, description, nav, page = '', noindex = false } = Astro.props;
 const s = await getSettings();
-const pageUrl = s.url + (page === 'index.html' ? '' : page);
+const pageUrl = canonicalUrl(s, page);
 const year = new Date().getFullYear();
 const active = (n: string) => (nav === n ? 'active' : undefined);
+// The home page gets no breadcrumb — a one-item trail tells nobody anything.
+const crumbLabel = LINKS.find((l) => l.nav === nav && l.nav !== 'home')?.label;
 ---
 
 <!doctype html>
@@ -28,6 +47,9 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
+<link rel="canonical" href={pageUrl} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+<meta name="theme-color" content="#0b1926" />
 
 <!-- Favicon — the crown mark, carried over from the previous site -->
 <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
@@ -59,7 +81,12 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
 <link rel="stylesheet" href="./styles.css">
 
 <!-- LocalBusiness structured data (helps Google Search & Maps). -->
-<script type="application/ld+json" set:html={JSON.stringify(jsonLd(s)).replace(/</g, '\\u003c')} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd(s)).replace(/</g, '\\u003c')} />
+
+<!-- Breadcrumb trail under the Google result, on interior pages. -->
+{crumbLabel && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbLd(s, crumbLabel, page)).replace(/</g, '\\u003c')} />
+)}
 
 <!-- per-page additions (e.g. the FAQ page's FAQPage structured data) -->
 <slot name="head" />
@@ -80,17 +107,15 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
     <img src="./assets/logo.png" alt={s.name} width="551" height="248" />
   </a>
   <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
-  <label for="nav-toggle" class="burger" aria-label="Open menu" title="Menu" tabindex="0" role="button" aria-expanded="false" aria-controls="nav-toggle">
+  {/* aria-controls names the menu the button opens, not the checkbox that
+      drives it — a screen reader user following it should land on the nav. */}
+  <label for="nav-toggle" class="burger" aria-label="Open menu" title="Menu" tabindex="0" role="button" aria-expanded="false" aria-controls="main-nav">
     <span></span><span></span><span></span>
   </label>
-  <nav>
-    <a href="./" class={active('home')}>Home</a>
-    <a href="./services.html" class={active('services')}>Services</a>
-    <a href="./emergency.html" class={active('emergency')}>Emergency</a>
-    <a href="./work.html" class={active('work')}>Our work</a>
-    <a href="./faq.html" class={active('faq')}>FAQs</a>
-    <a href="./quote.html" class={active('quote')}>Get a quote</a>
-    <a href="./contact.html" class={active('contact')}>Contact</a>
+  <nav id="main-nav" aria-label="Main">
+    {LINKS.map((l) => (
+      <a href={l.href} class={active(l.nav)} aria-current={nav === l.nav ? 'page' : undefined}>{l.label}</a>
+    ))}
   </nav>
   <div class="topbar-right">
     <div class="status" data-open-status title="Opening hours">
@@ -113,15 +138,20 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
   <aside class="press" aria-label="Company details">
     <span class="press-label">Registered &amp; findable</span>
     <ul class="press-list">
-      {s.credentials.map((c) => (
-        <li>
-          <a href={c.url} target="_blank" rel="noopener" title={c.name}>
-            {c.image
-              ? <img src={c.image} alt={c.name} loading="lazy" />
-              : <>{c.name} ↗</>}
-          </a>
-        </li>
-      ))}
+      {s.credentials.map((c) => {
+        // Badges are uploaded through /admin, so their size is read from the
+        // file rather than assumed — see src/lib/imageSize.ts.
+        const size = c.image ? imageSize(c.image) : null;
+        return (
+          <li>
+            <a href={c.url} target="_blank" rel="noopener" title={c.name}>
+              {c.image
+                ? <img src={c.image} alt={c.name} width={size?.width ?? 200} height={size?.height ?? 80} loading="lazy" />
+                : <>{c.name} ↗</>}
+            </a>
+          </li>
+        );
+      })}
     </ul>
   </aside>
 )}
@@ -141,14 +171,8 @@ const active = (n: string) => (nav === n ? 'active' : undefined);
     </a>
   </div>
 
-  <nav class="foot-nav">
-    <a href="./">Home</a>
-    <a href="./services.html">Services</a>
-    <a href="./emergency.html">Emergency</a>
-    <a href="./work.html">Our work</a>
-    <a href="./faq.html">FAQs</a>
-    <a href="./quote.html">Get a quote</a>
-    <a href="./contact.html">Contact</a>
+  <nav class="foot-nav" aria-label="Footer">
+    {LINKS.map((l) => <a href={l.href} aria-current={nav === l.nav ? 'page' : undefined}>{l.label}</a>)}
   </nav>
   <div class="socials">
     {s.email

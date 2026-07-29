@@ -6,6 +6,8 @@
  *  - "teaser" (the home page): each shot links through to the Photos page,
  *    landing with that photo already open.
  */
+import { imageSize } from '../lib/imageSize';
+
 interface Photo { src: string; caption: string }
 interface Props {
   photos: Photo[];
@@ -13,29 +15,41 @@ interface Props {
 }
 
 const { photos, mode } = Astro.props;
+// The real dimensions are read off each file at build time, so a photo
+// uploaded through /admin gets the right ones without anyone typing them.
+// The fallback matches the 4:3 crop the grid uses.
 const shots = photos.map((p, i) => ({
   ...p,
+  size: imageSize(p.src) ?? { width: 800, height: 600 },
   n: i + 1,
   prev: ((i - 1 + photos.length) % photos.length) + 1,
   next: ((i + 1) % photos.length) + 1,
 }));
-const shotHref = (n: number) => (mode === 'lightbox' ? `#shot-${n}` : `./photos.html#shot-${n}`);
+// The gallery lives on work.html. Getting this wrong is invisible in review
+// and dead on the live site, so test/build.test.ts checks every internal link
+// against the built output.
+const shotHref = (n: number) => (mode === 'lightbox' ? `#shot-${n}` : `./work.html#shot-${n}`);
 ---
 
 <div class="gallery-grid">
   {shots.map((p) => (
     <a class="shot" id={mode === 'lightbox' ? `thumb-${p.n}` : undefined} href={shotHref(p.n)}>
-      <img src={p.src} alt={p.caption} loading="lazy">
+      {/* Declaring the size reserves the space, so nothing jumps down the
+          page as the photos arrive. */}
+      <img src={p.src} alt={p.caption} width={p.size.width} height={p.size.height} loading="lazy" decoding="async">
       <span class="shot-cap">{p.caption}</span>
     </a>
   ))}
 </div>
 
+{/* The closed lightboxes are hidden from assistive tech until opened (app.ts
+    keeps this in sync with :target) — otherwise every caption is announced
+    twice, once in the grid and once inside an invisible dialog. */}
 {mode === 'lightbox' && shots.map((p) => (
-  <div class="lightbox" id={`shot-${p.n}`} role="dialog" aria-label={p.caption}>
+  <div class="lightbox" id={`shot-${p.n}`} role="dialog" aria-modal="true" aria-label={p.caption} aria-hidden="true">
     <a class="lb-backdrop" href={`#thumb-${p.n}`} aria-label="Close"></a>
     <figure class="lb-figure">
-      <img src={p.src} alt={p.caption}>
+      <img src={p.src} alt={p.caption} width={p.size.width} height={p.size.height} loading="lazy" decoding="async">
       <figcaption class="lb-cap">{p.caption}</figcaption>
     </figure>
     <a class="lb-nav lb-prev" href={`#shot-${p.prev}`} aria-label="Previous photo">‹</a>

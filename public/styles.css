@@ -622,6 +622,31 @@ body:has(.lightbox:target) { overflow: hidden; }
 }
 .map-card { aspect-ratio: 4/5; background: var(--glass-pale); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); }
 .map-card iframe { width: 100%; height: 100%; display: block; }
+
+/* The click-to-load map placeholder. Nothing is fetched from Google until
+   this button is pressed — see src/components/Map.astro. The faint grid is
+   drawn in CSS so the placeholder costs no requests of its own. */
+.map-load {
+  width: 100%; height: 100%; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px; text-align: center;
+  padding: 26px 22px; cursor: pointer; font-family: var(--text);
+  border: none; color: var(--navy-mid);
+  background-color: var(--glass-pale);
+  background-image:
+    linear-gradient(rgba(43, 138, 224, .16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43, 138, 224, .16) 1px, transparent 1px);
+  background-size: 34px 34px;
+  transition: background-color .15s ease;
+}
+.map-load:hover { background-color: #d6e6fa; }
+.map-load:focus-visible { outline: 3px solid var(--glass-deep); outline-offset: -3px; }
+.map-load-pin { width: 34px; height: 34px; color: var(--glass-deep); margin-bottom: 4px; }
+.map-load-main { font-weight: 700; font-size: 15px; color: var(--ink); line-height: 1.4; }
+.map-load-sub {
+  font-weight: 700; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--glass-deep); border-bottom: 2px solid var(--glass-deep); padding-bottom: 2px;
+}
+.map-load-note { font-size: 12px; color: var(--steel); max-width: 26ch; line-height: 1.45; margin-top: 6px; }
 .map-link { display: inline-block; margin-top: 14px; font-weight: 700; font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--glass); padding-bottom: 2px; }
 .map-link:hover { color: var(--glass-deep); }
 @media (max-width: 900px) {
@@ -721,17 +746,31 @@ footer .small { font-size: 11.5px; letter-spacing: 0.04em; color: var(--steel); 
   font-weight: 700; font-size: 11.5px; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--steel);
 }
-.field input, .field textarea {
+.field input, .field textarea, .field select {
   width: 100%; padding: 13px 15px;
   font-family: var(--text); font-size: 15.5px; color: var(--ink);
   background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
   transition: border-color .15s ease, box-shadow .15s ease;
 }
 .field textarea { resize: vertical; min-height: 140px; }
-.field input:focus, .field textarea:focus {
+.field input:focus, .field textarea:focus, .field select:focus {
   outline: none; border-color: var(--glass-deep);
   box-shadow: 0 0 0 3px var(--glass-pale);
 }
+
+/* The urgency checkboxes on the quote form. */
+.field-check { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; background: var(--panel); }
+.field-check legend {
+  font-weight: 700; font-size: 11.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--steel); padding: 0 6px;
+}
+.field-check label { display: flex; align-items: center; gap: 10px; font-size: 15px; line-height: 1.5; padding: 5px 0; cursor: pointer; }
+.field-check input { width: 18px; height: 18px; accent-color: var(--glass-deep); flex: none; }
+
+/* Honeypot — off-screen rather than display:none, because some bots skip
+   anything hidden. People never see it; screen readers skip the whole
+   aria-hidden block. */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .enquiry .btn { justify-self: start; border: none; cursor: pointer; font-family: var(--text); }
 .form-note { font-size: 13px; color: var(--steel); }
 .form-fallback {

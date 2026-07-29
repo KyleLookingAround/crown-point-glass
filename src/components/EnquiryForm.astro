@@ -1,0 +1,111 @@
+---
+/**
+ * The enquiry form.
+ *
+ * A static site can't process a form itself, so this posts to whatever
+ * endpoint is set in `formEndpoint` (content/settings.yml). While that's
+ * blank the form is replaced by the phone numbers — a form that silently
+ * swallows enquiries is worse than no form, and for a 24hr glazier the phone
+ * is the better route anyway.
+ *
+ * Two hidden fields ride along, both no-ops for services that don't use them:
+ *   _gotcha  — honeypot. Real people leave it empty; bots fill every input
+ *              they find, and Formspree/Basin/Getform bin those submissions.
+ *   _next    — where to send the browser after a successful post, so people
+ *              land on our thank-you page rather than the form service's.
+ */
+import { getSettings, telHref, canonicalUrl } from '../lib/site';
+
+interface Props {
+  /** `quote` asks the extra questions needed to price a job. */
+  variant?: 'contact' | 'quote';
+  submitLabel: string;
+  /** small print under the button */
+  note: string;
+  /** shown instead of the form when no endpoint is configured */
+  fallbackNote: string;
+}
+
+const { variant = 'contact', submitLabel, note, fallbackNote } = Astro.props;
+const s = await getSettings();
+const isQuote = variant === 'quote';
+---
+
+{s.formEndpoint ? (
+  <form class="enquiry" action={s.formEndpoint} method="post">
+    <input type="hidden" name="_subject" value={isQuote ? `Quote request — ${s.name}` : `Website enquiry — ${s.name}`}>
+    <input type="hidden" name="_next" value={canonicalUrl(s, 'thanks.html')}>
+    {/* Honeypot — hidden from people, irresistible to bots. */}
+    <p class="hp" aria-hidden="true">
+      <label for={`hp-${variant}`}>Leave this empty</label>
+      <input id={`hp-${variant}`} type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+    </p>
+
+    <div class="field-row">
+      <div class="field">
+        <label for={`f-${variant}-name`}>Name</label>
+        <input id={`f-${variant}-name`} name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for={`f-${variant}-phone`}>Phone number</label>
+        <input id={`f-${variant}-phone`} name="phone" type="tel" autocomplete="tel" required>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for={`f-${variant}-email`}>Email</label>
+        <input id={`f-${variant}-email`} name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for={`f-${variant}-postcode`}>Post code</label>
+        <input id={`f-${variant}-postcode`} name="postcode" type="text" autocomplete="postal-code" required>
+      </div>
+    </div>
+
+    {isQuote && (
+      <>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-quote-job">What needs doing</label>
+            <select id="f-quote-job" name="job" required>
+              <option value="">Choose one…</option>
+              <option>Misted or blown double glazing</option>
+              <option>Broken or cracked pane</option>
+              <option>New windows or doors</option>
+              <option>Shopfront or commercial glazing</option>
+              <option>Made-to-measure glass, mirror or splashback</option>
+              <option>Locks</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-quote-sizes">Sizes, if you have them</label>
+            <input id="f-quote-sizes" name="sizes" type="text" placeholder="e.g. 1200 × 800mm">
+          </div>
+        </div>
+        <fieldset class="field-check">
+          <legend>Anything urgent?</legend>
+          <label><input type="checkbox" name="open_to_weather" value="yes"> It's open to the weather or insecure</label>
+          <label><input type="checkbox" name="insurance" value="yes"> Going through insurance</label>
+        </fieldset>
+      </>
+    )}
+
+    <div class="field">
+      <label for={`f-${variant}-message`}>{isQuote ? 'Anything else we should know' : 'Message'}</label>
+      <textarea id={`f-${variant}-message`} name="message" rows={isQuote ? 4 : 6} required={!isQuote}></textarea>
+    </div>
+
+    <button class="btn" type="submit">{submitLabel}</button>
+    <p class="form-note">{note}</p>
+  </form>
+) : (
+  <div class="form-fallback">
+    <p>{fallbackNote}</p>
+    <div class="hero-cta">
+      <a class="btn" href={telHref(s.emergencyPhone)}>Call {s.emergencyPhone}</a>
+      <a class="btn btn-ghost" href={telHref(s.phone)}>Call {s.phone}</a>
+    </div>
+  </div>
+)}

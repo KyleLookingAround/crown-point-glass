@@ -1,19 +1,52 @@
-name: Build check
+name: Checks
 
-# Runs the build on every pull request, so a YAML typo or schema error in
-# content/ gets caught before it merges to main and takes the site down.
+# Runs on every pull request and every push to main.
+#
+# Three gates, in the order they're cheapest to fail:
+#   1. astro check   — the TypeScript/Astro type check
+#   2. astro build   — a YAML typo or schema error in content/ fails here
+#   3. node --test   — the unit tests, then the integrity checks that read
+#                      the built site (dead links, missing assets, metadata)
+#
+# Between them, a bad content edit or a broken link is caught before it can
+# reach the live site rather than after.
 
 on:
   pull_request:
+  push:
+    branches: [main]
+
+# A new push supersedes the run in flight for the same branch.
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 22
           cache: npm
+
       - run: npm ci
-      - run: npm run build
+
+      - name: Type check
+        run: npm run check
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm run test:only
+
+      # Handy when a check fails: download the built site and look at it.
+      - name: Upload the built site
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7

@@ -2,12 +2,16 @@
 import Base from '../layouts/Base.astro';
 import ServiceIcon from '../components/ServiceIcon.astro';
 import { getEntry } from 'astro:content';
-import { getSettings, telHref } from '../lib/site';
+import { getSettings, servicesLd, telHref } from '../lib/site';
 
 const s = await getSettings();
 const entry = await getEntry('services', 'main');
 if (!entry) throw new Error('content/services.yml is missing');
 const m = entry.data;
+
+// Each service as a schema.org `Service` tied back to the business, so Google
+// reads them as six things we do rather than six headings on a page.
+const ld = servicesLd(s, m.services, 'services.html');
 ---
 
 <Base
@@ -15,6 +19,8 @@ const m = entry.data;
   description={`Glazing services across ${s.region} and Cheshire: double glazing replacement, windows and doors, shopfronts, made-to-measure glass, locks and 24hr emergency board-up.`}
   nav="services"
   page="services.html">
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(ld).replace(/</g, '\\u003c')} slot="head" />
 
 <!-- PAGE HEADER -->
 <section class="page-head">

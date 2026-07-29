@@ -1,7 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import Map from '../components/Map.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
 import { getEntry } from 'astro:content';
-import { getSettings, mapEmbedUrl, directionsUrl, hasAddress, telHref } from '../lib/site';
+import { getSettings, telHref } from '../lib/site';
 
 const s = await getSettings();
 const entry = await getEntry('quote', 'main');
@@ -67,6 +69,13 @@ const quoteLabel = s.email ? 'Email a quote request' : 'Send a quote request';
       <ul class="checklist">
         {q.checklist.map((c) => <li>{c}</li>)}
       </ul>
+
+      <EnquiryForm
+        variant="quote"
+        submitLabel="Send the quote request"
+        note="We'll come back with a price, or a question if we need one more thing. If it's an emergency, ring instead — it's quicker."
+        fallbackNote="The quote form isn't connected yet, so the fastest route is the phone. Ring either number and we'll take the details there and then." />
+
       <ul class="contact-list">
         {s.email
           ? <li><span class="lbl">Email</span><a href={`mailto:${s.email}`}>{s.email}</a></li>
@@ -75,23 +84,13 @@ const quoteLabel = s.email ? 'Email a quote request' : 'Send a quote request';
         <li><span class="lbl">Emergency</span><a href={telHref(s.emergencyPhone)}>{s.emergencyPhone}</a></li>
       </ul>
       <div class="hero-cta">
-        <a class="btn" href={quoteHref}>{quoteLabel}</a>
+        <a class="btn btn-ghost" href={quoteHref}>{quoteLabel}</a>
         <a class="btn btn-ghost" href={telHref(s.phone)}>Ring the office</a>
       </div>
     </div>
 
     <div class="map-col">
-      <div class="map-card">
-        <iframe
-          src={mapEmbedUrl(s)}
-          width="100%" height="100%"
-          style="border:0; display:block;"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title={hasAddress(s) ? `${s.name}, ${s.street}, ${s.locality}` : `The area ${s.name} covers`}
-          allowfullscreen></iframe>
-      </div>
-      <a class="map-link" href={directionsUrl(s)} target="_blank" rel="noopener">Get directions →</a>
+      <Map />
     </div>
   </div>
 </section>

@@ -2,9 +2,11 @@
    The site works fully without this file; it just adds live touches:
    1) a real "open now / closed" status from the hours in content/settings.yml
    2) keyboard support for the burger menu and the work lightbox
-   3) a small window pane that fills as you scroll                        */
+   3) click-to-load maps, so Google isn't contacted until someone asks
+   4) a small window pane that fills as you scroll                        */
 
-type HoursData = { tz?: string; days?: Record<number, [number, number][]> };
+import { computeStatus, type HoursData } from '../lib/status';
+
 declare global {
   interface Window { __CPG__?: HoursData }
 }
@@ -13,53 +15,8 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- 1) live open / closed status ---------- */
 // Note: this reflects the office/works hours only. The emergency line runs
-// 24/7 and is never gated on this.
-const WEEKDAY: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-const DAY_NAME = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-function fmtTime(mins: number): string {
-  let h = Math.floor(mins / 60);
-  const m = mins % 60;
-  const ap = h >= 12 ? 'pm' : 'am';
-  h = h % 12 || 12;
-  return m ? `${h}:${String(m).padStart(2, '0')}${ap}` : `${h}${ap}`;
-}
-
-function nowInLondon(tz: string) {
-  const parts = new Intl.DateTimeFormat('en-GB', {
-    timeZone: tz, weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false,
-  }).formatToParts(new Date());
-  const get = (t: string) => parts.find((p) => p.type === t)?.value;
-  const day = WEEKDAY[get('weekday') ?? ''] ?? new Date().getDay();
-  let hour = parseInt(get('hour') ?? '0', 10);
-  if (hour === 24) hour = 0;
-  return { day, mins: hour * 60 + parseInt(get('minute') ?? '0', 10) };
-}
-
-function computeStatus(data: HoursData) {
-  const days = data.days || {};
-  const { day, mins } = nowInLondon(data.tz || 'Europe/London');
-
-  for (const [o, c] of (days[day] || [])) {
-    if (mins >= o && mins < c) {
-      const left = c - mins;
-      return left <= 30
-        ? { state: 'soon', main: 'Office closing soon', sub: `til ${fmtTime(c)}` }
-        : { state: 'open', main: 'Office open now', sub: `til ${fmtTime(c)}` };
-    }
-  }
-  // closed — find the next opening within the week
-  for (let off = 0; off < 8; off++) {
-    const d = (day + off) % 7;
-    for (const [o] of (days[d] || []).slice().sort((a, b) => a[0] - b[0])) {
-      if (off === 0 && o <= mins) continue;
-      const when = off === 0 ? fmtTime(o) : off === 1 ? `tomorrow ${fmtTime(o)}` : `${DAY_NAME[d]} ${fmtTime(o)}`;
-      return { state: 'closed', main: 'Office closed', sub: `opens ${when} · 24hr line open` };
-    }
-  }
-  return { state: 'closed', main: 'Office closed', sub: '24hr emergency line open' };
-}
-
+// 24/7 and is never gated on this. The maths lives in ../lib/status.ts so it
+// can be unit-tested against a fixed clock.
 function paintStatus() {
   const data = window.__CPG__;
   const nodes = document.querySelectorAll<HTMLElement>('[data-open-status]');
@@ -87,6 +44,10 @@ function wireBurger() {
   toggle.addEventListener('change', sync);
   document.querySelectorAll('.topbar nav a').forEach((a) =>
     a.addEventListener('click', () => { toggle.checked = false; sync(); }));
+  // Escape closes the menu — expected of anything that opens over the page.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle.checked) { toggle.checked = false; sync(); burger.focus(); }
+  });
 }
 
 function wireLightbox() {
@@ -102,14 +63,50 @@ function wireLightbox() {
     else if (e.key === 'ArrowLeft') go('.lb-prev', box);
     else if (e.key === 'ArrowRight') go('.lb-next', box);
   });
-  // move focus to the open lightbox's close button for keyboard users
-  addEventListener('hashchange', () => {
-    const box = document.querySelector('.lightbox:target');
-    if (box) box.querySelector<HTMLElement>('.lb-close')?.focus();
+  // Move focus to the open lightbox's close button, and hide the closed ones
+  // from assistive tech — otherwise every caption on the page is announced
+  // twice, once in the grid and once in an invisible dialog.
+  const syncLightboxes = () => {
+    document.querySelectorAll<HTMLElement>('.lightbox').forEach((box) => {
+      const open = box.matches(':target');
+      box.toggleAttribute('inert', !open);
+      box.setAttribute('aria-hidden', String(!open));
+      if (open) box.querySelector<HTMLElement>('.lb-close')?.focus();
+    });
+  };
+  syncLightboxes();
+  addEventListener('hashchange', syncLightboxes);
+}
+
+/* ---------- 3) click-to-load map ---------- */
+// The Google Maps embed pulls several hundred KB and sets Google cookies the
+// moment it renders. Nobody arriving on the contact page has asked for that,
+// so the markup ships a still placeholder and we only swap in the real iframe
+// when someone actually wants the map. With JS off the placeholder stays and
+// the "open in Google Maps" link underneath still works.
+function wireMaps() {
+  document.querySelectorAll<HTMLElement>('[data-map]').forEach((holder) => {
+    const load = () => {
+      const src = holder.dataset.map;
+      if (!src || holder.dataset.loaded) return;
+      holder.dataset.loaded = 'true';
+      const frame = document.createElement('iframe');
+      frame.src = src;
+      frame.title = holder.dataset.mapTitle || 'Map';
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+      frame.allowFullscreen = true;
+      frame.setAttribute('style', 'border:0; display:block; width:100%; height:100%;');
+      holder.replaceChildren(frame);
+    };
+    holder.querySelector('.map-load')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      load();
+    });
   });
 }
 
-/* ---------- 3) scroll-fill window pane ---------- */
+/* ---------- 4) scroll-fill window pane ---------- */
 function buildScrollPane() {
   if (reduceMotion) return;
   const el = document.createElement('div');
@@ -145,4 +142,5 @@ paintStatus();
 setInterval(paintStatus, 60000);
 wireBurger();
 wireLightbox();
+wireMaps();
 buildScrollPane();

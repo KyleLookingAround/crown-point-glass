@@ -1,0 +1,46 @@
+---
+/**
+ * The 404 page, built through the site layout rather than as a standalone
+ * stub — so someone who lands on a dead link still gets the nav, the footer
+ * and, most importantly, both phone numbers. GitHub Pages serves /404.html
+ * for anything it can't find.
+ */
+import Base from '../layouts/Base.astro';
+import { getSettings, telHref } from '../lib/site';
+
+const s = await getSettings();
+---
+
+<Base
+  title={`Page not found — ${s.name}`}
+  description={`That page isn't here. Crown Point Glass — glaziers and 24hr emergency board-up across ${s.region} and Cheshire. Call ${s.emergencyPhone} any time.`}
+  page="404.html"
+  noindex>
+
+<section class="page-head">
+  <div class="page-head-grid">
+    <div>
+      <div class="eyebrow">404</div>
+      <h1 class="page-title">That page <em>isn't here.</em></h1>
+      <p class="page-lede">
+        Broken link, or a page that's moved. Nothing you did wrong — try one of
+        these, or just ring us and we'll sort it out on the phone.
+      </p>
+      <div class="hero-cta">
+        <a class="btn" href={telHref(s.emergencyPhone)}>Call {s.emergencyPhone}</a>
+        <a class="btn btn-ghost" href="./">Back to the home page</a>
+      </div>
+    </div>
+    <div>
+      <ul class="contact-list">
+        <li><span class="lbl">Services</span><a href="./services.html">What we do</a></li>
+        <li><span class="lbl">Emergency</span><a href="./emergency.html">24hr board-up</a></li>
+        <li><span class="lbl">Our work</span><a href="./work.html">Recent jobs</a></li>
+        <li><span class="lbl">Quote</span><a href="./quote.html">Get a price</a></li>
+        <li><span class="lbl">Contact</span><a href="./contact.html">Get in touch</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</Base>
